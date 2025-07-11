@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Dev\\Projects\\Task01\\Task01.csproj": {}
+    "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Task01.csproj": {}
   },
   "projects": {
-    "D:\\Dev\\Projects\\Task01\\Task01.csproj": {
+    "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Task01.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Dev\\Projects\\Task01\\Task01.csproj",
+        "projectUniqueName": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Task01.csproj",
         "projectName": "Task01",
-        "projectPath": "D:\\Dev\\Projects\\Task01\\Task01.csproj",
+        "projectPath": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Task01.csproj",
         "packagesPath": "C:\\Users\\muhammad.abdullah\\.nuget\\packages\\",
-        "outputPath": "D:\\Dev\\Projects\\Task01\\obj\\",
+        "outputPath": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -51,6 +51,20 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.7, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"
