@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>User API</title>
+</head>
+<body>
+    <h1>Find User by Email</h1>
+    <input type="email" id="email" placeholder="Enter email">
+    <button onclick="findUser()">Search</button>
+    <pre id="result"></pre>
+
+    <script>
+    async function findUser() {
+        const email = document.getElementById('email').value;
+        const resultEl = document.getElementById('result');
+        resultEl.textContent = "";
+
+        if (email === "") {
+            const response = await fetch(`/Users`);
+            const users = await response.json();
+            resultEl.textContent = "The Users are :\n";
+            users.forEach(user => {
+                resultEl.textContent += `ID: ${user.id}\nName: ${user.name}\nEmail: ${user.email}\n\n`;
+            });
+            
+        } else {
+            const response = await fetch(`/Users/find?email=${email}`);
+            if (response.ok) {
+                const user = await response.json();
+                resultEl.textContent = `ID: ${user.id}\nName: ${user.name}\nEmail: ${user.email}\n`;
+            } else {
+                resultEl.textContent = "User not found.";
+            }
+
+        }
+    }
+    </script>
+</body>
+</html>

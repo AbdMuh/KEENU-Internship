@@ -1,0 +1,14 @@
+@Task01_HostAddress = http://localhost:5148
+
+GET {{Task01_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{Task01_HostAddress}}/users/find?email=alice%40example.com
+Accept: application/json
+
+// Request URL: https://localhost:5148/WeatherForecast
+
+//developer-focused testing tool, used to test HTTP requests and responses 
+// by sending request directly from the IDE, instead of using a browser or Postman.
