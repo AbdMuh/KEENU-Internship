@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using System.Text;
 using Task01.Model;
+using Task01.Data;
+using Azure.Identity;
 
 namespace Task01.Controllers
 {
@@ -11,32 +14,72 @@ namespace Task01.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        [HttpPost("login")]
-        public IActionResult Login([FromBody] User user)
+
+        private readonly JwtSettings _jwtSettings;
+        private readonly ApplicationDBContext _dbContext;
+
+        public AuthController(IOptions<JwtSettings> jwtSettings, ApplicationDBContext dBContext)
         {
-            if (user.Name == "alice" && user.Email == "123")
+            _jwtSettings = jwtSettings.Value;
+            _dbContext = dBContext;
+        }
+
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] CurrentLogin currentLogin)
+        {
+
+            if (currentLogin == null || string.IsNullOrEmpty(currentLogin.username) || string.IsNullOrEmpty(currentLogin.password))
             {
-                var claims = new[] 
-                {  // claims = payload 
-        new Claim(ClaimTypes.Name, user.Name),
-        new Claim(ClaimTypes.Email, user.Email),
-        new Claim(ClaimTypes.Role, "Admin")
-    };
+                return BadRequest("Invalid login request.");
+            } else
+            {
+                var user = _dbContext.LoginUsers
+                .FirstOrDefault(u => u.Username == currentLogin.username && u.Password == currentLogin.password);
 
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ThisIsASecretKey123!ThisIsASecretKey123!")); //atleast 16 characters long
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                var token = new JwtSecurityToken(
-                    issuer: null,
-                    audience: null,
-                    claims: claims,
-                    expires: DateTime.Now.AddMinutes(30),
-                    signingCredentials: creds);
+                if (user == null) {
+                    return Unauthorized("Invalid credentials.");
 
-                return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
-            }
+                }
+                else
+                {
+                    var Name = _dbContext.Users
+                        .Where(u => u.Id == user.UserId)
+                        .Select(u => u.Name)
+                        .FirstOrDefault();
+                    var email = _dbContext.Users
+                        .Where(u => u.Id == user.UserId)
+                        .Select(u => u.Email)
+                        .FirstOrDefault();
+                    var role = user.Role;
+                    var Username = user.Username;
 
 
-            return Unauthorized("Invalid credentials.");
+                    var claims = new[]
+                    {
+                        new Claim(ClaimTypes.Name, Name),
+                        new Claim(ClaimTypes.Role, role),
+                        new Claim(ClaimTypes.Email, email),
+                        //new Claim("Username", Username) sing custom claim for username
+                    };
+                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.key)); //atleast 16 characters long
+                    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                    var token = new JwtSecurityToken(
+                        issuer: _jwtSettings.Issuer,
+                        audience: _jwtSettings.Audience,
+                        claims: claims,
+                        expires: DateTime.Now.AddMinutes(_jwtSettings.Expiration),
+                        signingCredentials: creds);
+
+                    return Ok(new
+                    {
+                        token = new JwtSecurityTokenHandler().WriteToken(token),
+                        expiration = DateTime.Now.AddMinutes(_jwtSettings.Expiration),
+                        username = Username
+                    });
+                }
+
+                   
+                }
         }
     }
 }

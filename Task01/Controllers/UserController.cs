@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using Task01.Model;
 using UserApi.Services;
 
@@ -7,6 +8,7 @@ namespace UserApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any, NoStore = false)]
     public class UsersController : ControllerBase
     {
 
@@ -21,15 +23,39 @@ namespace UserApi.Controllers
         public ActionResult<IEnumerable<User>> GetAll()
         {
             var users = _userService.GetAllUsers();
-            return Ok(users);
+            //return Ok(users);
+            return Ok($"Useres Loaded at: {DateTime.UtcNow}");
         }
 
-        [Authorize]
-        [HttpGet("secure")]
-        public IActionResult GetSecureData()
+        [Authorize(Roles = "Admin,Manager")]
+        [HttpGet("admin")]
+        public IActionResult GetSecureAdminData()
         {
-            return Ok("This is protected data.");
+            var name = User.Identity?.Name;
+            var email = User.FindFirst(ClaimTypes.Email)?.Value; 
+            //var username = User.FindFirst("Username")?.Value;  since used custom claim 
+            return Ok($"Welcome Mr.{name}, your  is {email}");
         }
+
+        [Authorize(Roles = "User")]
+        [HttpGet("user")]
+        public IActionResult GetSecureUserData()
+        {
+            return Ok("This is User only data");
+        }
+
+        [HttpGet("keyCrash")]
+        public IActionResult KeyCrash()
+        {
+            throw new KeyNotFoundException("This is a test crash.");
+        }
+
+        [HttpGet("serverCrash")]
+        public IActionResult ServerCrash()
+        {
+            throw new Exception("This is a test crash.");
+        }
+
 
         [HttpPost]
         public ActionResult<User> Create([FromBody] User user)

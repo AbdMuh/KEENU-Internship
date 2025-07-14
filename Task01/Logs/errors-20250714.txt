@@ -1,0 +1,1 @@
+[2025-07-14 14:54:25] [ERR] ❌ Unhandled exception occurred

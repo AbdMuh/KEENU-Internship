@@ -1,15 +1,31 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer; // after installing package  
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer; // after installing package  
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using Serilog;
+using Serilog.Events;
 using System.Diagnostics;
+using System.Text;
 using Task01.Data;
+using Task01.Middlewares;
+using Task01.Model;
 using UserApi.Services;
 
-var key = "ThisIsASecretKey123!ThisIsASecretKey123!";
 
 var builder = WebApplication.CreateBuilder(args);
 
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File(
+        path: "Logs/errors-.txt",
+        rollingInterval: RollingInterval.Day, //new file for each day
+        restrictedToMinimumLevel: LogEventLevel.Error, //with level error and above
+        outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss}] [{Level:u3}] {Message:lj}{NewLine}{Exception}"
+    )
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt")); //binding Jwt Section to JwtSettings class
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -19,20 +35,27 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 
 builder.Services.AddScoped<IUserService,UserService>();
 
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]); //converts string to byte array for the key creation
+
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; // how to validate tokens upon receiving requests
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; // how to respond when authentication fails
 }).AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
+{     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = false,
-        ValidateAudience = false,
+        ValidateIssuer = true,
+        ValidateAudience = true,
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(key) // actual key to validate the token
     };
 });
+
+builder.Services.AddResponseCaching();
+
 
 var app = builder.Build();
 
@@ -43,24 +66,26 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseResponseCaching(); 
 app.UseAuthentication(); //comes before authorization
 app.UseAuthorization();
 app.UseStaticFiles();
 
-//app.Use(async (ctx, next) =>
-//{
-//    Console.WriteLine("A - before");
-//    await next(); // go to next middleware
-//    Console.WriteLine("A - after");
-//});
+app.Use(async (ctx, next) =>
+{
+    Console.WriteLine("A - before");
+    await next(); // go to next middleware
+    Console.WriteLine("A - after");
+});
 
-//app.Use(async (ctx, next) => //ctx represents current request information (allowing us to modify) 
-//// next, represents next middleware in the pipeline 
-//{
-//    Console.WriteLine("B - before");
-//    await next(); 
-//    Console.WriteLine("B - after");
-//});
+app.Use(async (ctx, next) => //ctx represents current request information (allowing us to modify) 
+// next, represents next middleware in the pipeline 
+{
+    Console.WriteLine("B - before");
+    await next();
+    Console.WriteLine("B - after");
+});
 
 app.Use(async (ctx, next) =>
 {
@@ -68,8 +93,8 @@ app.Use(async (ctx, next) =>
     await next();
     timer.Stop();
     Console.WriteLine($"Request took {timer.ElapsedMilliseconds} ms");
+    Console.WriteLine($"Response status Code: {ctx.Response.StatusCode}");
 });
-
 
 app.MapControllers();
 

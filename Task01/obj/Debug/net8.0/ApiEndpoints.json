@@ -8,8 +8,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "user",
-        "Type": "Task01.Model.User",
+        "Name": "currentLogin",
+        "Type": "Task01.Model.CurrentLogin",
         "IsRequired": true
       }
     ],
@@ -89,6 +89,16 @@
   },
   {
     "ContainingType": "UserApi.Controllers.UsersController",
+    "Method": "GetSecureAdminData",
+    "RelativePath": "Users/admin",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserApi.Controllers.UsersController",
     "Method": "FindByEmail",
     "RelativePath": "Users/find",
     "HttpMethod": "GET",
@@ -115,8 +125,8 @@
   },
   {
     "ContainingType": "UserApi.Controllers.UsersController",
-    "Method": "GetSecureData",
-    "RelativePath": "Users/secure",
+    "Method": "KeyCrash",
+    "RelativePath": "Users/keyCrash",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -124,24 +134,23 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Task01.Controllers.WeatherForecastController",
-    "Method": "Get",
-    "RelativePath": "WeatherForecast",
+    "ContainingType": "UserApi.Controllers.UsersController",
+    "Method": "ServerCrash",
+    "RelativePath": "Users/serverCrash",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Task01.WeatherForecast, Task01, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ],
-    "EndpointName": "GetWeatherForecast"
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserApi.Controllers.UsersController",
+    "Method": "GetSecureUserData",
+    "RelativePath": "Users/user",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   }
 ]
