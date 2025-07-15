@@ -16,4 +16,5 @@ VALUES
 ('abdullah456', '123', 'Admin', 2),
 ('ahmed789', '123', 'Manager', 3);
 
+  DELETE FROM Users WHERE id=4;
 
