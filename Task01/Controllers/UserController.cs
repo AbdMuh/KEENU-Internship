@@ -23,8 +23,8 @@ namespace UserApi.Controllers
         public ActionResult<IEnumerable<User>> GetAll()
         {
             var users = _userService.GetAllUsers();
-            //return Ok(users);
-            return Ok($"Useres Loaded at: {DateTime.UtcNow}");
+            return Ok(users);
+            //return Ok($"Useres Loaded at: {DateTime.UtcNow}");
         }
 
         [Authorize(Roles = "Admin,Manager")]
@@ -32,7 +32,7 @@ namespace UserApi.Controllers
         public IActionResult GetSecureAdminData()
         {
             var name = User.Identity?.Name;
-            var email = User.FindFirst(ClaimTypes.Email)?.Value; 
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
             //var username = User.FindFirst("Username")?.Value;  since used custom claim 
             return Ok($"Welcome Mr.{name}, your  is {email}");
         }
@@ -45,6 +45,7 @@ namespace UserApi.Controllers
         }
 
         [HttpGet("keyCrash")]
+        [ResponseCache(NoStore = true)]
         public IActionResult KeyCrash()
         {
             throw new KeyNotFoundException("This is a test crash.");
@@ -75,11 +76,31 @@ namespace UserApi.Controllers
             return user == null ? NotFound("User not found.") : Ok(user);
         }
 
-        [HttpGet("find")]
-        public ActionResult<User> FindByEmail([FromQuery] string email)
+        [HttpPut("update/{id}")]
+        public ActionResult<User> Update(int id, [FromBody] User user)
         {
-            var user = _userService.FindUserByEmail(email);
-            return user == null ? NotFound("User not found.") : Ok(user);
+            if (user == null)
+                return BadRequest("Request body is null.");
+
+            if (user.Id == 0)
+            {
+                user.Id = id;
+            }
+            else if (id != user.Id)
+            {
+                return BadRequest("Route ID does not match body ID.");
+            }
+
+            var existingUser = _userService.GetUserById(id);
+            if (existingUser == null)
+                return NotFound("User not found.");
+
+            var updatedUser = _userService.UpdateUser(user);
+            if (updatedUser == null)
+                throw new Exception("Server error: Failed to update user.");
+
+            return Ok(updatedUser);
         }
+
     }
 }

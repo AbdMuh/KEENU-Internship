@@ -24,17 +24,17 @@ namespace Task01.Middlewares
                 int statusCode;
                 string message;
 
-                _logger.LogError(e, "❌ Unhandled exception occurred");
-
                 if (e is KeyNotFoundException)
                 {
                     statusCode = 404;
                     message = "Server couldn't find the requested resource.";
+                    _logger.LogError(e, message);
                 }
                 else
                 {
                     statusCode = 500;
                     message = "An error occurred while servicing the request.";
+                    _logger.LogError(e, message);
                 }
 
                 context.Response.StatusCode = statusCode; 

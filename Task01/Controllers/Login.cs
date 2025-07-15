@@ -43,13 +43,9 @@ namespace Task01.Controllers
                 else
                 {
                     var Name = _dbContext.Users
-                        .Where(u => u.Id == user.UserId)
-                        .Select(u => u.Name)
+                        .Where(u => u.Id == user.UserId).Select(u => u.Name)
                         .FirstOrDefault();
-                    var email = _dbContext.Users
-                        .Where(u => u.Id == user.UserId)
-                        .Select(u => u.Email)
-                        .FirstOrDefault();
+                    var email = _dbContext.Users.Where(u => u.Id == user.Id).Select(u => u.Email).FirstOrDefault(); //perks of navigation property
                     var role = user.Role;
                     var Username = user.Username;
 

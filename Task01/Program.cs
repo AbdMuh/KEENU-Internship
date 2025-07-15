@@ -95,7 +95,7 @@ app.Use(async (ctx, next) =>
     Console.WriteLine($"Request took {timer.ElapsedMilliseconds} ms");
     Console.WriteLine($"Response status Code: {ctx.Response.StatusCode}");
 });
-
+app.UseMiddleware<standardResponse>(); 
 app.MapControllers();
 
 app.Run();

@@ -9,6 +9,6 @@ namespace UserApi.Services
         User? FindUserByEmail(string email);
         IEnumerable<User> GetAllUsers();
         User? GetUserById(int id);
-        void UpdateUser(User user);
+        User? UpdateUser(User user);
     }
 }

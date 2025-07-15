@@ -208,20 +208,41 @@
         }
       }
     },
-    "/Users/find": {
-      "get": {
+    "/Users/update/{id}": {
+      "put": {
         "tags": [
           "Users"
         ],
         "parameters": [
           {
-            "name": "email",
-            "in": "query",
+            "name": "id",
+            "in": "path",
+            "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK",

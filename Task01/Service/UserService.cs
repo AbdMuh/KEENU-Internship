@@ -32,9 +32,14 @@ namespace UserApi.Services
         public void CreateUser(User user)
         {
             _context.Users.Add(user);
+            if(user.loginUser != null)
+            {
+                user.loginUser.UserId = user.Id;
+            }
+            _context.SaveChanges();
         }
 
-        public void UpdateUser(User user)
+        public User? UpdateUser(User user)
         {
             var existingUser = _context.Users.Find(user.Id);
             if (existingUser != null)
@@ -42,6 +47,7 @@ namespace UserApi.Services
                 existingUser.Name = user.Name;
                 existingUser.Email = user.Email;
                 _context.SaveChanges();
+                return user;
             }
             else
             {
