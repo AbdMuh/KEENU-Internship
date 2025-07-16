@@ -61,14 +61,37 @@ namespace UserApi.Controllers
         [HttpPost]
         public ActionResult<User> Create([FromBody] User user)
         {
-            if (user == null || string.IsNullOrWhiteSpace(user.Name) || string.IsNullOrWhiteSpace(user.Email))
+
+            Console.WriteLine($"Creating user: {user.loginUser.Username}, Email: {user.Email}");
+            user.loginUser.Role = "User";
+            if (user == null ||
+                string.IsNullOrWhiteSpace(user.Name) ||  
+                string.IsNullOrWhiteSpace(user.Email) ||
+                user.loginUser == null ||
+                string.IsNullOrWhiteSpace(user.loginUser.Username) ||
+                string.IsNullOrWhiteSpace(user.loginUser.Password) ||
+                string.IsNullOrWhiteSpace(user.loginUser.Role))
             {
-                return BadRequest("Invalid user data.");
+                return BadRequest("Invalid user or login data.");
             }
-            _userService.CreateUser(user);
+            _userService.CreateUser(user); // Make sure this saves both user & login
             return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
         }
 
+
+        [HttpDelete("delete/{id}")]
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                _userService.DeleteUser(id);
+                return Ok($"User with ID: {id} deleted Successfully"); // 204 No Content
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message); // 404 Not Found
+            }
+        }
         [HttpGet("{id}")]
         public ActionResult<User> GetById(int id)
         {

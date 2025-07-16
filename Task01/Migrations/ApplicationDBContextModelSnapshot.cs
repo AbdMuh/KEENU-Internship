@@ -86,7 +86,8 @@ namespace Task01.Migrations
 
             modelBuilder.Entity("Task01.Model.User", b =>
                 {
-                    b.Navigation("loginUser");
+                    b.Navigation("loginUser")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

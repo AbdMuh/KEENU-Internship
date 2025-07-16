@@ -10,7 +10,6 @@ using Task01.Middlewares;
 using Task01.Model;
 using UserApi.Services;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 Log.Logger = new LoggerConfiguration()
@@ -24,16 +23,29 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 builder.Host.UseSerilog();
-
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt")); //binding Jwt Section to JwtSettings class
+
 builder.Services.AddControllers();
+
+// Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ReactApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173", "http://localhost:3000", "http://localhost:3001") // Added 5173 for Vite
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials(); //- it's okay for the frontend to send cookies, authorization headers
+    }); 
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IUserService,UserService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]); //converts string to byte array for the key creation
@@ -43,7 +55,8 @@ builder.Services.AddAuthentication(options =>
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; // how to validate tokens upon receiving requests
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; // how to respond when authentication fails
 }).AddJwtBearer(options =>
-{     options.TokenValidationParameters = new TokenValidationParameters
+{
+    options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
         ValidateAudience = true,
@@ -56,7 +69,6 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddResponseCaching();
 
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -67,7 +79,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseMiddleware<ErrorHandlingMiddleware>();
-app.UseResponseCaching(); 
+
+// Use CORS - Must be before UseAuthentication and UseAuthorization
+app.UseCors("ReactApp");
+
+app.UseResponseCaching();
 app.UseAuthentication(); //comes before authorization
 app.UseAuthorization();
 app.UseStaticFiles();
@@ -95,7 +111,8 @@ app.Use(async (ctx, next) =>
     Console.WriteLine($"Request took {timer.ElapsedMilliseconds} ms");
     Console.WriteLine($"Response status Code: {ctx.Response.StatusCode}");
 });
-app.UseMiddleware<standardResponse>(); 
+
+app.UseMiddleware<standardResponse>();
 app.MapControllers();
 
 app.Run();

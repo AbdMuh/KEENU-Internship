@@ -81,6 +81,7 @@ namespace Task01.Middlewares
                 404 => "Not Found",
                 500 => "Internal Server Error",
                 200 => "Request Serviced Successfully",
+                201 => "Creation Successful",
                 _ => "Unknown Error "
             };
         }

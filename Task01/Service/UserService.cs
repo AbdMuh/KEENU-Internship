@@ -31,12 +31,9 @@ namespace UserApi.Services
 
         public void CreateUser(User user)
         {
-            _context.Users.Add(user);
-            if(user.loginUser != null)
-            {
-                user.loginUser.UserId = user.Id;
-            }
+            _context.Users.Add(user); // loginUser will be saved too
             _context.SaveChanges();
+            //user.loginUser.UserId = user.Id; no need if navigation set properly, done automatically 
         }
 
         public User? UpdateUser(User user)

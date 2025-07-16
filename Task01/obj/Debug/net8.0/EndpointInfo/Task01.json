@@ -168,6 +168,29 @@
         }
       }
     },
+    "/Users/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/Users/{id}": {
       "get": {
         "tags": [
@@ -322,7 +345,7 @@
       "User": {
         "required": [
           "email",
-          "id",
+          "loginUser",
           "name"
         ],
         "type": "object",

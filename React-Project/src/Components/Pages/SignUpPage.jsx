@@ -4,6 +4,7 @@ import { Mail, Lock, Eye, EyeOff, User } from "lucide-react";
 const SignUpPage = ({ onSignUp, onSwitchToLogin }) => {
   const [formData, setFormData] = useState({
     name: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -35,6 +36,11 @@ const SignUpPage = ({ onSignUp, onSwitchToLogin }) => {
       newErrors.name = "Name is required";
     } else if (formData.name.trim().length < 2) {
       newErrors.name = "Name must be at least 2 characters";
+    }
+    if (!formData.username.trim()) {
+      newErrors.username = "Username is required";
+    } else if (formData.username.trim().length < 2) {
+      newErrors.username = "Username must be at least 2 characters";
     }
 
     if (!formData.email) {
@@ -69,14 +75,29 @@ const SignUpPage = ({ onSignUp, onSwitchToLogin }) => {
 
     setIsLoading(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      onSignUp({
+    try {
+      const result = await onSignUp({
+        //madding the form data to what API expects
+        id: 0,
         name: formData.name,
         email: formData.email,
+        loginUser: {
+          id: 0,
+          username: formData.username,
+          password: formData.password,
+          role: "",
+          userId: 0,
+        },
       });
+
+      if (!result.success) {
+        setErrors({ submit: result.error });
+      }
+    } catch (error) {
+      setErrors({ submit: "An unexpected error occurred. Please try again." });
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -126,6 +147,36 @@ const SignUpPage = ({ onSignUp, onSwitchToLogin }) => {
               </div>
               {errors.name && (
                 <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+              )}
+            </div>
+
+            {/* Username Field */}
+            <div>
+              <label
+                htmlFor="username"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Username
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <User className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  id="username"
+                  name="username"
+                  type="text"
+                  autoComplete="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  className={`appearance-none relative block w-full pl-10 pr-3 py-3 border ${
+                    errors.username ? "border-red-500" : "border-gray-300"
+                  } placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm`}
+                  placeholder="Enter your full Username"
+                />
+              </div>
+              {errors.username && (
+                <p className="mt-1 text-sm text-red-600">{errors.username}</p>
               )}
             </div>
 
@@ -249,47 +300,24 @@ const SignUpPage = ({ onSignUp, onSwitchToLogin }) => {
               )}
             </div>
 
-            {/* Terms & Conditions */}
-            <div className="flex items-center">
-              <input
-                id="terms"
-                name="terms"
-                type="checkbox"
-                className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
-              />
-              <label
-                htmlFor="terms"
-                className="ml-2 block text-sm text-gray-900"
-              >
-                I agree to the{" "}
-                <a href="#" className="text-green-600 hover:text-green-500">
-                  Terms and Conditions
-                </a>
-              </label>
-            </div>
+            {/* Submit Error */}
+            {errors.submit && (
+              <p className="text-red-600 text-sm mb-2">{errors.submit}</p>
+            )}
 
             {/* Submit Button */}
-            <div>
-              <button
-                type="button"
-                onClick={handleSubmit}
-                disabled={isLoading}
-                className={`group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white ${
-                  isLoading
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-green-600 hover:bg-green-700"
-                } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors`}
-              >
-                {isLoading ? (
-                  <div className="flex items-center">
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                    Creating account...
-                  </div>
-                ) : (
-                  "Create Account"
-                )}
-              </button>
-            </div>
+            <button
+              type="submit"
+              onClick={handleSubmit}
+              disabled={isLoading}
+              className={`group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white ${
+                isLoading
+                  ? "bg-green-300 cursor-not-allowed"
+                  : "bg-green-600 hover:bg-green-700"
+              } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500`}
+            >
+              {isLoading ? "Signing up..." : "Sign Up"}
+            </button>
           </div>
         </div>
       </div>
