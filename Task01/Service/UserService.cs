@@ -16,7 +16,7 @@ namespace UserApi.Services
         public IEnumerable<User> GetAllUsers()
         {
             return _context.Users
-        .Include(u => u.loginUser) // ✅ Eager-load LoginUser
+        .Include(u => u.loginUser) // Eager-loading LoginUser
         .ToList();
         }
 

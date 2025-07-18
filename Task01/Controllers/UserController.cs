@@ -20,6 +20,7 @@ namespace UserApi.Controllers
 
 
         [HttpGet]
+        [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)] //disabling cache
         public ActionResult<IEnumerable<User>> GetAll()
         {
             var users = _userService.GetAllUsers();

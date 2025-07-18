@@ -182,7 +182,7 @@ function Cover() {
           </MDTypography>
         </MDBox>
 
-        <MDBox pt={4} pb={3} px={3}>
+        <MDBox pt={4} pb={3} px={3} sx={{ width: "100%" }}>
           <MDBox component="form" role="form" onSubmit={handleSubmit}>
             <MDBox mb={2}>
               <MDInput
@@ -253,7 +253,7 @@ function Cover() {
               />
               <MDTypography
                 variant="button"
-                fontWeight="regular"
+                fontWeight="light"
                 color="text"
                 sx={{
                   cursor: isSubmitting ? "default" : "pointer",
@@ -265,17 +265,19 @@ function Cover() {
                   !isSubmitting && setFormData((prev) => ({ ...prev, agree: !prev.agree }))
                 }
               >
-                &nbsp;&nbsp;I agree to the&nbsp;
-              </MDTypography>
-              <MDTypography
-                component="a"
-                href="#"
-                variant="button"
-                fontWeight="bold"
-                color="info"
-                textGradient
-              >
-                Terms and Conditions
+                <MDTypography variant="caption" color="text" fontWeight="light" ml={1} mr={0.5}>
+                  I agree to the
+                </MDTypography>
+                <MDTypography
+                  component="a"
+                  href="#"
+                  variant="caption"
+                  fontWeight="bold"
+                  color="info"
+                  textGradient
+                >
+                  Terms and Conditions
+                </MDTypography>
               </MDTypography>
             </MDBox>
 

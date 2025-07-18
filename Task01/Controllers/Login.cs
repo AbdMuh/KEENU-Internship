@@ -34,6 +34,8 @@ namespace Task01.Controllers
                 return BadRequest("Invalid login request.");
             } else
             {
+                //var user = _dbContext.LoginUsers          ERROR CODE
+                //.FirstOrDefault(u => u.Username == currentLogin.username && u.Password == currentLogin.password);
                 var user = _dbContext.LoginUsers
     .Include(l => l.User)
     .FirstOrDefault(u => u.Username == currentLogin.username && u.Password == currentLogin.password);
@@ -44,10 +46,13 @@ namespace Task01.Controllers
                 }
                 else
                 {
-                    var Name = _dbContext.Users
-                        .Where(u => u.Id == user.UserId).Select(u => u.Name)
-                        .FirstOrDefault();
-                    var email = _dbContext.Users.Where(u => u.Id == user.Id).Select(u => u.Email).FirstOrDefault(); //perks of navigation property
+                    //var Name = _dbContext.Users
+                    //    .Where(u => u.Id == user.UserId).Select(u => u.Name)    ERROR CODE
+                    //    .FirstOrDefault();
+                    //var email = _dbContext.Users.Where(u => u.Id == user.Id).Select(u => u.Email).FirstOrDefault(); 
+
+                    var Name = user.User.Name;
+                    var email = user.User.Email;
                     var role = user.Role;
                     var Username = user.Username;
 

@@ -44,11 +44,15 @@ export default function usersTableData(users = [], onDelete, onUpdate) {
               size="small"
               onClick={() => {
                 const confirmUpdate = window.confirm(`Are you sure you want to Update ${u.name}?`);
+                console.log("loginUser.id = ", u.loginUser?.id);
+
                 if (confirmUpdate && onUpdate) {
                   onUpdate(u.id, {
                     id: u.id,
                     name: u.name,
                     email: u.email,
+                    loginId: u.loginUser?.id,
+                    role: u.loginUser?.role || "user",
                     username: u.loginUser?.username || "",
                     password: u.loginUser?.password || "",
                   });

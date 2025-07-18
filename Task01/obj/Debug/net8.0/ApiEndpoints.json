@@ -16,6 +16,74 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Task01.Controllers.CardsController",
+    "Method": "AddCard",
+    "RelativePath": "Cards/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userCard",
+        "Type": "Task01.Model.UserCard",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Task01.Model.UserCard",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Task01.Controllers.CardsController",
+    "Method": "GetAllCards",
+    "RelativePath": "Cards/get",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "info",
+        "Type": "Task01.Model.CardInfo",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Task01.Model.UserCard, Task01, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Task01.Controllers.CardsController",
+    "Method": "SetDefaultCard",
+    "RelativePath": "Cards/setDefault",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "info",
+        "Type": "Task01.Model.CardInfo",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UserApi.Controllers.UsersController",
     "Method": "GetAll",
     "RelativePath": "Users",

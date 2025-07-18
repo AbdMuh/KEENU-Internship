@@ -50,7 +50,7 @@ function AuthLayout({ image, children }) {
         </Grid>
       </MDBox>
 
-      <Footer light />
+      <Footer light mt={3} />
     </PageLayout>
   );
 }

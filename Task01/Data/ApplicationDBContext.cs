@@ -10,10 +10,17 @@ namespace Task01.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<LoginUser> LoginUsers { get; set; }
+        public DbSet<UserCard> UserCards { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder); // always call base
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.UserCards)
+                .WithOne(uc => uc.User)
+                .HasForeignKey(uc => uc.UserId)
+                .OnDelete(DeleteBehavior.Cascade); // Optional: cleans up cards when user is deleted
 
             modelBuilder.Entity<User>()
                 .HasOne(u => u.loginUser)

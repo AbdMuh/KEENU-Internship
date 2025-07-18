@@ -100,7 +100,8 @@ function SignIn() {
     setLoading(true);
 
     try {
-      const result = await apiService.login(formData);
+      const result = await apiService.login(formData); //error
+      console.log("Login result:", result);
 
       if (result.success) {
         navigate("/dashboard");

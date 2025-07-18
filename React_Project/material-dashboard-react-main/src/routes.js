@@ -38,6 +38,7 @@ Coded by www.creative-tim.com
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
+// import FindUser from "layouts/tables/FindUser";
 import UpdateUser from "layouts/UpdateUser";
 import Billing from "layouts/billing";
 import RTL from "layouts/rtl";
@@ -65,6 +66,18 @@ const routes = [
       </ProtectedRoute>
     ),
   },
+  // {
+  //   type: "collapse",
+  //   name: "Find User",
+  //   key: "find-user",
+  //   icon: <Icon fontSize="small">find_in_page</Icon>,
+  //   route: "/find-user",
+  //   component: (
+  //     <ProtectedRoute>
+  //       <FindUser />
+  //     </ProtectedRoute>
+  //   ),
+  // },
   {
     // type: "collapse",
     // name: "Update User",

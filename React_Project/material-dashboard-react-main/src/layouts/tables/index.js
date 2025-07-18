@@ -10,7 +10,7 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 import usersTableData from "layouts/tables/data/usersTableData";
 import apiService from "services/apiService";
-import { useNavigate } from "react-router-dom"; // ✅ Add this
+import { useNavigate } from "react-router-dom";
 
 function Tables() {
   const [userData, setUserData] = useState([]);
@@ -31,7 +31,7 @@ function Tables() {
   };
 
   const handleDelete = async (userId) => {
-    const res = await apiService.apiCall("delete", `/Users/delete/${userId}`);
+    const res = await apiService.apiCall(userId);
     if (res.success) {
       alert("User deleted successfully.");
       fetchUsers(); // Refresh table
@@ -41,7 +41,7 @@ function Tables() {
   };
 
   const handleUpdate = (id, user) => {
-    console.log(user);
+    // console.log(user);
     navigate(`/updateUser/${id}`, { state: { user } });
   };
 

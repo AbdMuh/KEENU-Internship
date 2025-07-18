@@ -46,7 +46,7 @@ const apiService = {
   login: async (credentials) => {
     try {
       console.log("Sending login request with:", credentials);
-      const response = await apiClient.post("/Auth/login", credentials);
+      const response = await apiClient.post("/Auth/login", credentials); //error
       console.log("Login response:", response.data);
 
       // Fix: Handle different response structures
@@ -154,9 +154,22 @@ const apiService = {
       };
     }
   },
+  apiCall: async (id) => {
+    try {
+      const response = await apiClient.delete(`/Users/delete/${id}`);
+      return { success: true, data: response.data.data || response.data };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.response?.data?.message || "Failed to delete user",
+        details: error.response?.data,
+      };
+    }
+  },
 
   updateUser: async (id, userData) => {
     try {
+      console.log("Updating user with ID:", id, "and data:", userData);
       const response = await apiClient.put(`/Users/update/${id}`, userData);
       return { success: true, data: response.data.data || response.data };
     } catch (error) {
@@ -209,19 +222,6 @@ const apiService = {
       return user ? JSON.parse(user) : null;
     } catch {
       return null;
-    }
-  },
-
-  apiCall: async (method, endpoint, data = null) => {
-    try {
-      const response = await apiClient({ method, url: endpoint, data });
-      return { success: true, data: response.data.data || response.data };
-    } catch (error) {
-      return {
-        success: false,
-        error: error.response?.data?.message || "API call failed",
-        details: error.response?.data,
-      };
     }
   },
 };
