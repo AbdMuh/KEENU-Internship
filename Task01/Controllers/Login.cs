@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using System.Text;
-using Task01.Model;
 using Task01.Data;
-using Azure.Identity;
+using Task01.Model;
 
 namespace Task01.Controllers
 {
@@ -34,7 +35,8 @@ namespace Task01.Controllers
             } else
             {
                 var user = _dbContext.LoginUsers
-                .FirstOrDefault(u => u.Username == currentLogin.username && u.Password == currentLogin.password);
+    .Include(l => l.User)
+    .FirstOrDefault(u => u.Username == currentLogin.username && u.Password == currentLogin.password);
 
                 if (user == null) {
                     return Unauthorized("Invalid credentials.");

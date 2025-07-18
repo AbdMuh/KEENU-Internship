@@ -38,6 +38,7 @@ Coded by www.creative-tim.com
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
+import UpdateUser from "layouts/UpdateUser";
 import Billing from "layouts/billing";
 import RTL from "layouts/rtl";
 import Notifications from "layouts/notifications";
@@ -48,6 +49,9 @@ import SignUp from "layouts/authentication/sign-up";
 // @mui icons
 import Icon from "@mui/material/Icon";
 
+// routes.js
+import ProtectedRoute from "ProtectedRoutes";
+
 const routes = [
   {
     type: "collapse",
@@ -55,15 +59,35 @@ const routes = [
     key: "dashboard",
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
-    component: <Dashboard />,
+    component: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    // type: "collapse",
+    // name: "Update User",
+    key: "update-user",
+    // icon: <Icon fontSize="small">edit</Icon>,
+    route: "/updateUser/:id",
+    component: (
+      <ProtectedRoute>
+        <UpdateUser />
+      </ProtectedRoute>
+    ),
   },
   {
     type: "collapse",
-    name: "Tables",
+    name: "User Table",
     key: "tables",
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/tables",
-    component: <Tables />,
+    component: (
+      <ProtectedRoute>
+        <Tables />
+      </ProtectedRoute>
+    ),
   },
   {
     type: "collapse",
@@ -71,15 +95,11 @@ const routes = [
     key: "billing",
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/billing",
-    component: <Billing />,
-  },
-  {
-    type: "collapse",
-    name: "RTL",
-    key: "rtl",
-    icon: <Icon fontSize="small">format_textdirection_r_to_l</Icon>,
-    route: "/rtl",
-    component: <RTL />,
+    component: (
+      <ProtectedRoute>
+        <Billing />
+      </ProtectedRoute>
+    ),
   },
   {
     type: "collapse",
@@ -87,7 +107,11 @@ const routes = [
     key: "notifications",
     icon: <Icon fontSize="small">notifications</Icon>,
     route: "/notifications",
-    component: <Notifications />,
+    component: (
+      <ProtectedRoute>
+        <Notifications />
+      </ProtectedRoute>
+    ),
   },
   {
     type: "collapse",
@@ -95,8 +119,14 @@ const routes = [
     key: "profile",
     icon: <Icon fontSize="small">person</Icon>,
     route: "/profile",
-    component: <Profile />,
+    component: (
+      <ProtectedRoute>
+        <Profile />
+      </ProtectedRoute>
+    ),
   },
+
+  // Public Routes
   {
     type: "collapse",
     name: "Sign In",

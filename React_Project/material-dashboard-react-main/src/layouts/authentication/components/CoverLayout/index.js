@@ -34,11 +34,11 @@ function CoverLayout({ coverHeight, image, children }) {
   return (
     <PageLayout>
       <DefaultNavbar
-        action={{
-          type: "external",
-          route: "https://creative-tim.com/product/material-dashboard-react",
-          label: "free download",
-        }}
+        // action={{
+        //   type: "external",
+        //   route: "https://creative-tim.com/product/material-dashboard-react",
+        //   label: "free download",
+        // }}
         transparent
         light
       />
@@ -69,14 +69,13 @@ function CoverLayout({ coverHeight, image, children }) {
           </Grid>
         </Grid>
       </MDBox>
-      <Footer />
     </PageLayout>
   );
 }
 
 // Setting default props for the CoverLayout
 CoverLayout.defaultProps = {
-  coverHeight: "35vh",
+  coverHeight: "45vh",
 };
 
 // Typechecking props for the CoverLayout

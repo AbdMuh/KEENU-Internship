@@ -1,6 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
-using Task01.Model;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Task01.Data;
+using Task01.Model;
 
 namespace UserApi.Services
 {
@@ -14,7 +15,9 @@ namespace UserApi.Services
 
         public IEnumerable<User> GetAllUsers()
         {
-            return _context.Users.ToList();
+            return _context.Users
+        .Include(u => u.loginUser) // ✅ Eager-load LoginUser
+        .ToList();
         }
 
         public User? GetUserById(int id)
