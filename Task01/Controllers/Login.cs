@@ -62,7 +62,6 @@ namespace Task01.Controllers
                         new Claim(ClaimTypes.Name, Name),
                         new Claim(ClaimTypes.Role, role),
                         new Claim(ClaimTypes.Email, email),
-                        //new Claim("Username", Username) sing custom claim for username
                     };
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.key)); //atleast 16 characters long
                     var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -77,7 +76,9 @@ namespace Task01.Controllers
                     {
                         token = new JwtSecurityTokenHandler().WriteToken(token),
                         expiration = DateTime.Now.AddMinutes(_jwtSettings.Expiration),
-                        username = Username
+                        username = Username,
+                        id = user.UserId,
+                        name = Name
                     });
                 }
 

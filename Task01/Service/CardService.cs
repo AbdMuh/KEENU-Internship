@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using Task01.Data;
 using Task01.Model;
 
@@ -37,8 +38,31 @@ namespace UserApi.Services
             {
                 card.SetAsDefault = (card.Id == cardId) ? 1 : 0;
             }
-
             _context.SaveChanges();
+        }
+        public UserCard GetDefaultCard(int userId)
+        {
+            var userCards = _context.UserCards
+                .Where(uc => uc.UserId == userId)
+                .ToList();
+
+            var count = 0;
+            UserCard? defaultCard = null;
+
+            foreach (var card in userCards)
+            {
+                if(count == 0)
+                {
+                    defaultCard = card;
+                }
+                if(card.SetAsDefault != 0)
+                {
+                    return (card);
+                }
+                count++;
+            }
+            return defaultCard;
+            
         }
     }
 }

@@ -7,5 +7,7 @@ namespace UserApi.Services
         IEnumerable<UserCard> GetAllCards(int userId);
         UserCard AddCard(UserCard userCard);
         void SetDefaultCard(int userId, int cardId);
+
+        UserCard GetDefaultCard(int userId);
     }
 }

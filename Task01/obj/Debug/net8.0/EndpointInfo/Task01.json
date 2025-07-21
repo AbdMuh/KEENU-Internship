@@ -36,30 +36,22 @@
         }
       }
     },
-    "/Cards/get": {
-      "post": {
+    "/Cards/GetAllCards/{userId}": {
+      "get": {
         "tags": [
           "Cards"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CardInfo"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CardInfo"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CardInfo"
-              }
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -168,6 +160,46 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/Cards/getDefault/{userId}": {
+      "get": {
+        "tags": [
+          "Cards"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserCard"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserCard"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserCard"
+                }
+              }
+            }
           }
         }
       }
@@ -525,7 +557,8 @@
         "required": [
           "cardNumber",
           "expirationDate",
-          "holderName"
+          "holderName",
+          "userId"
         ],
         "type": "object",
         "properties": {
@@ -538,6 +571,8 @@
             "nullable": true
           },
           "cardNumber": {
+            "maxLength": 16,
+            "minLength": 16,
             "type": "string",
             "nullable": true
           },
@@ -552,9 +587,6 @@
           "userId": {
             "type": "integer",
             "format": "int32"
-          },
-          "user": {
-            "$ref": "#/components/schemas/User"
           }
         },
         "additionalProperties": false

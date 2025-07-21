@@ -46,6 +46,7 @@ import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
+import AddCard from "layouts/billing/AddCard";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -87,6 +88,18 @@ const routes = [
     component: (
       <ProtectedRoute>
         <UpdateUser />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    type: "collapse",
+    name: "Add Payment Method",
+    key: "add-payment-method",
+    icon: <Icon fontSize="small">payment</Icon>,
+    route: "addCard",
+    component: (
+      <ProtectedRoute>
+        <AddCard />
       </ProtectedRoute>
     ),
   },
@@ -141,10 +154,10 @@ const routes = [
 
   // Public Routes
   {
-    type: "collapse",
-    name: "Sign In",
+    // type: "collapse",
+    // name: "Sign In",
     key: "sign-in",
-    icon: <Icon fontSize="small">login</Icon>,
+    // icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
   },

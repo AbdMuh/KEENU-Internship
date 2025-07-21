@@ -7,7 +7,7 @@ namespace Task01.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class CardsController : ControllerBase
     {
         private readonly ICardService _cardService;
@@ -17,13 +17,11 @@ namespace Task01.Controllers
             _cardService = cardService;
         }
 
-        [HttpPost("get")]
-        public ActionResult<IEnumerable<UserCard>> GetAllCards([FromBody] CardInfo info)
-        {
-            if (info == null || info.UserId== 0)
-                return BadRequest("Invalid or missing Card Informationu");
+        [HttpGet("GetAllCards/{userId}")]
 
-            var userCards = _cardService.GetAllCards(info.UserId);
+        public ActionResult<IEnumerable<UserCard>> GetAllCards(int userId)
+        {
+            var userCards = _cardService.GetAllCards(userId);
 
             if (!userCards.Any())
                 return NotFound("No cards found for this user.");
@@ -37,18 +35,26 @@ namespace Task01.Controllers
             if (userCard == null || userCard.UserId == 0 || string.IsNullOrWhiteSpace(userCard.CardNumber))
                 return BadRequest("Invalid card data.");
 
+            if(  (userCard.CardNumber).Length != 16)
+            {
+                return BadRequest("Card Number Should be 16 Digits Long");
+            }
+
             var createdCard = _cardService.AddCard(userCard);
             return CreatedAtAction(nameof(GetAllCards), new { userId = createdCard.UserId }, createdCard);
         }
 
-        [HttpPost("setDefault")]
-        public IActionResult SetDefaultCard([FromBody] CardInfo info)
+        [HttpPut("setDefault")]
+        public IActionResult SetDefaultCard([FromBody] CardInfo cardInfo)
         {
-            if (info.UserId == 0 || info.CardId == 0)
-                return BadRequest("Invalid or Missing Parameters");
-
-            _cardService.SetDefaultCard(info.UserId, info.CardId);
+            _cardService.SetDefaultCard(cardInfo.UserId, cardInfo.CardId);
             return Ok("Card display preference updated successfully.");
+        }
+        [HttpGet("getDefault/{userId}")]
+        public ActionResult<UserCard> getDefault(int userId)
+        {
+           UserCard card = _cardService.GetDefaultCard(userId);
+            return Ok(card);
         }
     }
 }

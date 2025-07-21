@@ -20,14 +20,20 @@ namespace Task01.Data
                 .HasMany(u => u.UserCards)
                 .WithOne(uc => uc.User)
                 .HasForeignKey(uc => uc.UserId)
-                .OnDelete(DeleteBehavior.Cascade); // Optional: cleans up cards when user is deleted
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<User>()
                 .HasOne(u => u.loginUser)
                 .WithOne(l => l.User)
                 .HasForeignKey<LoginUser>(l => l.UserId)
                 .IsRequired()
-                .OnDelete(DeleteBehavior.Cascade); // Optional: cleans up login when user is deleted
+                .OnDelete(DeleteBehavior.Cascade); 
+
+            //modelBuilder.Entity<UserCard>()
+            //    .HasOne(uc => uc.User)
+            //    .WithMany(u => u.UserCards)
+            //    .HasForeignKey(uc => uc.UserId)
+            //    .OnDelete(DeleteBehavior.Cascade); 
         }
     }
 }

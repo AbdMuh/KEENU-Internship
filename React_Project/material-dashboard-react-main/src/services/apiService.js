@@ -224,6 +224,54 @@ const apiService = {
       return null;
     }
   },
+
+  getCards: async (userId) => {
+    try {
+      const cards = await apiClient.get(`/Cards/GetAllCards/${userId}`);
+      return { success: true, data: cards.data.data }; //card object retrived from API
+    } catch (error) {
+      return {
+        success: false,
+        error: error.response?.data?.message || "Failed to fetch cards", //error message from API
+      };
+    }
+  },
+
+  addCard: async (cardInfo) => {
+    try {
+      const response = await apiClient.post(`/Cards/add`, cardInfo);
+      return { success: true, data: response.data.data };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.response?.data?.message || "Failed to add card",
+      };
+    }
+  },
+
+  setDefaultCard: async (cardInfo) => {
+    try {
+      const response = await apiClient.put(`/Cards/setDefault`, cardInfo);
+      return { success: true, data: response.data.data };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.response?.data?.message || "Failed to set default card",
+      };
+    }
+  },
+
+  getDefaultCard: async (userId) => {
+    try {
+      const response = await apiClient.get(`/Cards/getDefault/${userId}`);
+      return { success: true, data: response.data.data };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.response?.data?.message || "Failed to fetch default card",
+      };
+    }
+  },
 };
 
 export default apiService;

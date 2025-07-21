@@ -1,23 +1,13 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
+// React
+import React, { useState } from "react"; // ✅ FIX: Add React + useState import
 
 // @mui material components
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import Icon from "@mui/material/Icon";
 import Tooltip from "@mui/material/Tooltip";
+import CircularProgress from "@mui/material/CircularProgress";
+import PropTypes from "prop-types";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -31,77 +21,203 @@ import visaLogo from "assets/images/logos/visa.png";
 // Material Dashboard 2 React context
 import { useMaterialUIController } from "context";
 
-function PaymentMethod() {
+// API service (assuming you missed this)
+import apiService from "services/apiService"; // ✅ Add this if not already in scope
+
+function PaymentMethod({
+  paymentMethods = [],
+  loading = false,
+  error = null,
+  onRefresh,
+  handleAddCard,
+}) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
+  const [selectedCard, setSelectedCard] = useState(-1); // ✅ FIX: use camelCase consistently
+
+  const formatCardNumber = (cardNumber) => {
+    if (!cardNumber) return "****\u00A0\u00A0****\u00A0\u00A0****\u00A0\u00A0****";
+    const lastFour = cardNumber.slice(-4);
+    return `****\u00A0\u00A0****\u00A0\u00A0****\u00A0\u00A0${lastFour}`;
+  };
+
+  const getCardType = (cardNumber) => {
+    if (!cardNumber) return "visa";
+    const firstDigit = cardNumber.charAt(0);
+    if (firstDigit === "4") return "visa";
+    if (firstDigit === "5" || firstDigit === "2") return "mastercard";
+    return "visa";
+  };
+
+  const getCardLogo = (cardNumber) => {
+    const cardType = getCardType(cardNumber);
+    return cardType === "mastercard" ? masterCardLogo : visaLogo;
+  };
+
+  async function handleChangeDefaultCard(cardId) {
+    const userId = JSON.parse(localStorage.getItem("user"))?.id;
+    console.log("Setting default card for user:", userId, "Card ID:", cardId);
+    const response = await apiService.setDefaultCard({ userId, cardId });
+    if (response.success) {
+      alert("Default card updated successfully.");
+      onRefresh();
+    } else {
+      alert(`Error: ${response.error}`);
+    }
+    setSelectedCard(-1); // ✅ FIX: corrected from SetSelectedCard
+  }
 
   return (
-    <Card id="delete-account">
+    <Card id="payment-methods">
       <MDBox pt={2} px={2} display="flex" justifyContent="space-between" alignItems="center">
         <MDTypography variant="h6" fontWeight="medium">
           Payment Method
         </MDTypography>
-        <MDButton variant="gradient" color="dark">
-          <Icon sx={{ fontWeight: "bold" }}>add</Icon>
-          &nbsp;add new card
-        </MDButton>
+        <MDBox display="flex" gap={1}>
+          {onRefresh && (
+            <MDButton
+              variant="outlined"
+              color="info"
+              size="small"
+              onClick={onRefresh}
+              disabled={loading}
+            >
+              <Icon sx={{ fontWeight: "bold" }}>refresh</Icon>
+              &nbsp;refresh
+            </MDButton>
+          )}
+          <MDButton variant="gradient" color="dark" onClick={handleAddCard}>
+            <Icon sx={{ fontWeight: "bold" }}>add</Icon>
+            &nbsp;add new card
+          </MDButton>
+          <MDButton
+            variant="gradient"
+            color={selectedCard === -1 ? "error" : "success"}
+            onClick={() => handleChangeDefaultCard(selectedCard)}
+            disabled={selectedCard === -1 || loading}
+          >
+            <Icon sx={{ fontWeight: "bold" }}>{selectedCard === -1 ? "clear" : "check"}</Icon>
+            &nbsp;Make Default
+          </MDButton>
+        </MDBox>
       </MDBox>
+
       <MDBox p={2}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <MDBox
-              borderRadius="lg"
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              p={3}
-              sx={{
-                border: ({ borders: { borderWidth, borderColor } }) =>
-                  `${borderWidth[1]} solid ${borderColor}`,
-              }}
-            >
-              <MDBox component="img" src={masterCardLogo} alt="master card" width="10%" mr={2} />
-              <MDTypography variant="h6" fontWeight="medium">
-                ****&nbsp;&nbsp;****&nbsp;&nbsp;****&nbsp;&nbsp;7852
-              </MDTypography>
-              <MDBox ml="auto" lineHeight={0} color={darkMode ? "white" : "dark"}>
-                <Tooltip title="Edit Card" placement="top">
-                  <Icon sx={{ cursor: "pointer" }} fontSize="small">
-                    edit
-                  </Icon>
-                </Tooltip>
-              </MDBox>
-            </MDBox>
+        {loading ? (
+          <MDBox display="flex" justifyContent="center" alignItems="center" minHeight="150px">
+            <CircularProgress size={40} />
+            <MDTypography variant="body2" ml={2}>
+              Loading payment methods...
+            </MDTypography>
+          </MDBox>
+        ) : error ? (
+          <MDBox textAlign="center" py={3}>
+            <MDTypography variant="body2" color="error">
+              Error: {error}
+            </MDTypography>
+            {onRefresh && (
+              <MDButton
+                variant="outlined"
+                color="error"
+                size="small"
+                onClick={onRefresh}
+                sx={{ mt: 1 }}
+              >
+                Retry
+              </MDButton>
+            )}
+          </MDBox>
+        ) : paymentMethods.length === 0 ? (
+          <MDBox textAlign="center" py={3}>
+            <MDTypography variant="body2" color="text">
+              No payment methods found
+            </MDTypography>
+          </MDBox>
+        ) : (
+          <Grid container spacing={3}>
+            {paymentMethods.map((card, index) => (
+              <Grid item xs={12} md={6} key={card.id || index}>
+                <MDBox
+                  borderRadius="lg"
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  p={3}
+                  position="relative"
+                  sx={{
+                    border: ({ borders: { borderWidth, borderColor } }) =>
+                      `${borderWidth[1]} solid ${borderColor}`,
+                    backgroundColor:
+                      card.setAsDefault === 1
+                        ? darkMode
+                          ? "rgba(76, 175, 80, 0.1)"
+                          : "rgba(76, 175, 80, 0.05)"
+                        : "transparent",
+                    borderColor: card.setAsDefault === 1 ? "success.main" : undefined,
+                  }}
+                  onClick={() => {
+                    setSelectedCard(card.id);
+                  }}
+                >
+                  {card.setAsDefault === 1 && (
+                    <MDBox
+                      position="absolute"
+                      top="8px"
+                      right="8px"
+                      display="flex"
+                      alignItems="center"
+                    >
+                      <MDTypography
+                        variant="caption"
+                        color="success"
+                        fontWeight="bold"
+                        sx={{ fontSize: "10px" }}
+                      >
+                        DEFAULT
+                      </MDTypography>
+                    </MDBox>
+                  )}
+
+                  <MDBox
+                    component="img"
+                    src={getCardLogo(card.cardNumber)}
+                    alt={`${getCardType(card.cardNumber)} card`}
+                    width="10%"
+                    mr={2}
+                  />
+
+                  <MDBox flex={1}>
+                    <MDTypography variant="h6" fontWeight="medium">
+                      {formatCardNumber(card.cardNumber)}
+                    </MDTypography>
+                    <MDTypography variant="caption" color="text">
+                      {card.holderName || "Card Holder"}
+                    </MDTypography>
+                  </MDBox>
+
+                  <MDBox ml="auto" lineHeight={0} color={darkMode ? "white" : "dark"}>
+                    <Tooltip title="Edit Card" placement="top">
+                      <Icon sx={{ cursor: "pointer" }} fontSize="small">
+                        edit
+                      </Icon>
+                    </Tooltip>
+                  </MDBox>
+                </MDBox>
+              </Grid>
+            ))}
           </Grid>
-          <Grid item xs={12} md={6}>
-            <MDBox
-              borderRadius="lg"
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              p={3}
-              sx={{
-                border: ({ borders: { borderWidth, borderColor } }) =>
-                  `${borderWidth[1]} solid ${borderColor}`,
-              }}
-            >
-              <MDBox component="img" src={visaLogo} alt="master card" width="10%" mr={2} />
-              <MDTypography variant="h6" fontWeight="medium">
-                ****&nbsp;&nbsp;****&nbsp;&nbsp;****&nbsp;&nbsp;5248
-              </MDTypography>
-              <MDBox ml="auto" lineHeight={0} color={darkMode ? "white" : "dark"}>
-                <Tooltip title="Edit Card" placement="top">
-                  <Icon sx={{ cursor: "pointer" }} fontSize="small">
-                    edit
-                  </Icon>
-                </Tooltip>
-              </MDBox>
-            </MDBox>
-          </Grid>
-        </Grid>
+        )}
       </MDBox>
     </Card>
   );
 }
+
+PaymentMethod.propTypes = {
+  paymentMethods: PropTypes.array,
+  loading: PropTypes.bool,
+  error: PropTypes.string,
+  onRefresh: PropTypes.func,
+  handleAddCard: PropTypes.func,
+};
 
 export default PaymentMethod;
