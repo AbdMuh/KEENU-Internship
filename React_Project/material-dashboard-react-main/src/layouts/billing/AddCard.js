@@ -8,9 +8,12 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import Icon from "@mui/material/Icon";
 import apiService from "services/apiService";
+import MDButton from "components/MDButton";
+import { useAlert } from "context/AlertContext";
 
 function AddCard() {
   const navigate = useNavigate();
+  const { showAlert } = useAlert();
 
   const [formData, setFormData] = useState({
     holderName: "",
@@ -19,8 +22,6 @@ function AddCard() {
     setAsDefault: 0,
   });
 
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [validationErrors, setValidationErrors] = useState({});
 
   useEffect(() => {
@@ -30,16 +31,6 @@ function AddCard() {
       holderName: user?.name || "",
     }));
   }, []);
-
-  useEffect(() => {
-    if (success || error) {
-      const timer = setTimeout(() => {
-        setSuccess("");
-        setError("");
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [success, error]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -54,8 +45,8 @@ function AddCard() {
 
     if (!formData.holderName.trim()) errors.holderName = "Card holder name is required.";
     if (!formData.cardNumber.trim()) errors.cardNumber = "Card number is required.";
-    else if (!/^\d{15,19}$/.test(formData.cardNumber))
-      errors.cardNumber = "Card number must be 15–19 digits and contain only numbers.";
+    else if (!/^\d{16}$/.test(formData.cardNumber))
+      errors.cardNumber = "Card number must be 16 digits and contain only numbers.";
 
     if (!formData.expirationDate.trim()) errors.expirationDate = "Expiration date is required.";
 
@@ -67,18 +58,16 @@ function AddCard() {
     const payload = {
       id: 0,
       userId: userId,
-      holderName: formData.holderName,
-      cardNumber: formData.cardNumber,
-      expirationDate: formData.expirationDate,
-      setAsDefault: formData.setAsDefault,
+      ...formData,
     };
 
     console.log("Card payload to send:", payload);
 
     try {
       const res = await apiService.addCard(payload);
+      console.log("Response from addCard:", res.data);
       if (res.success) {
-        setSuccess(res.data);
+        showAlert(res.data, "success");
         setFormData({
           holderName: formData.holderName,
           cardNumber: "",
@@ -87,11 +76,11 @@ function AddCard() {
         });
         navigate("/billing");
       } else {
-        setError(res.error);
+        showAlert(res.error, "error");
       }
     } catch (err) {
-      console.error(err);
-      setError("Something went wrong while adding the card.");
+      console.error(err, "error");
+      showAlert("Something went wrong while adding the card.", "error");
     }
   };
 
@@ -110,16 +99,16 @@ function AddCard() {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox pt={6} pb={3}>
-        {error && (
+        {/* {error && (
           <MDBox mb={2}>
             <Alert severity="error">{error}</Alert>
           </MDBox>
-        )}
-        {success && (
+        )} */}
+        {/* {success && (
           <MDBox mb={2}>
             <Alert severity="success">{success}</Alert>
           </MDBox>
-        )}
+        )} */}
 
         <Grid container spacing={6}>
           <Grid item xs={12}>
@@ -190,22 +179,22 @@ function AddCard() {
                     </Grid>
                     <Grid item xs={12}>
                       <MDBox mt={2} display="flex" gap={2}>
-                        <Button
+                        <MDButton
                           type="submit"
                           variant="contained"
                           color="primary"
                           startIcon={<Icon>add</Icon>}
                         >
                           Add Card
-                        </Button>
-                        <Button
+                        </MDButton>
+                        <MDButton
                           variant="outlined"
                           color="secondary"
                           onClick={() => navigate("/billing")}
                           startIcon={<Icon>arrow_back</Icon>}
                         >
                           Back to Billing
-                        </Button>
+                        </MDButton>
                       </MDBox>
                     </Grid>
                   </Grid>

@@ -9,6 +9,7 @@ import MDTypography from "components/MDTypography";
 import apiService from "services/apiService";
 import Icon from "@mui/material/Icon";
 import { string } from "prop-types";
+import MDButton from "components/MDButton";
 
 function UpdateUser() {
   const { id } = useParams();
@@ -182,22 +183,22 @@ function UpdateUser() {
                     </Grid>
                     <Grid item xs={12}>
                       <MDBox mt={2} display="flex" gap={2}>
-                        <Button
+                        <MDButton
                           type="submit"
                           variant="contained"
                           color="primary"
                           startIcon={<Icon>edit</Icon>}
                         >
                           Update User
-                        </Button>
-                        <Button
+                        </MDButton>
+                        <MDButton
                           variant="outlined"
                           color="secondary"
                           onClick={() => navigate("/tables")}
                           startIcon={<Icon>arrow_back</Icon>}
                         >
                           Back to Users
-                        </Button>
+                        </MDButton>
                       </MDBox>
                     </Grid>
                   </Grid>

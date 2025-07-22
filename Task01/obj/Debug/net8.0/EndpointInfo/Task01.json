@@ -133,8 +133,50 @@
         }
       }
     },
+    "/Cards/update/{cardId}": {
+      "put": {
+        "tags": [
+          "Cards"
+        ],
+        "parameters": [
+          {
+            "name": "cardId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCard"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCard"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCard"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/Cards/setDefault": {
-      "post": {
+      "put": {
         "tags": [
           "Cards"
         ],

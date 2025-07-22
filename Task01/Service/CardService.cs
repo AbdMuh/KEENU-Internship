@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Task01.Data;
 using Task01.Model;
@@ -23,10 +24,23 @@ namespace UserApi.Services
 
         public UserCard AddCard(UserCard userCard)
         {
+            if(userCard.SetAsDefault == 1)
+            {
+                SetDefaultCard(userCard.UserId, userCard.Id);
+            }
             _context.UserCards.Add(userCard);
             _context.SaveChanges();
             return userCard;
         }
+        public void UpdateCard(int cardId, UserCard userCard)
+        {
+            var existingCard = _context.UserCards.Find(cardId);
+            existingCard.CardNumber = userCard.CardNumber;
+            existingCard.ExpirationDate = userCard.ExpirationDate;
+            _context.SaveChanges();
+        }
+
+
 
         public void SetDefaultCard(int userId, int cardId)
         {

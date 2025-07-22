@@ -8,6 +8,7 @@ import Icon from "@mui/material/Icon";
 import Tooltip from "@mui/material/Tooltip";
 import CircularProgress from "@mui/material/CircularProgress";
 import PropTypes from "prop-types";
+import { useAlert } from "context/AlertContext";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -21,8 +22,8 @@ import visaLogo from "assets/images/logos/visa.png";
 // Material Dashboard 2 React context
 import { useMaterialUIController } from "context";
 
-// API service (assuming you missed this)
-import apiService from "services/apiService"; // ✅ Add this if not already in scope
+import apiService from "services/apiService";
+import GenericModal from "../GenericModal";
 
 function PaymentMethod({
   paymentMethods = [],
@@ -33,14 +34,16 @@ function PaymentMethod({
 }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
-  const [selectedCard, setSelectedCard] = useState(-1); // ✅ FIX: use camelCase consistently
+  const [selectedCard, setSelectedCard] = useState(-1);
+  const { showAlert } = useAlert();
+  const [selectedUpdate, setSelectedUpdate] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const formatCardNumber = (cardNumber) => {
     if (!cardNumber) return "****\u00A0\u00A0****\u00A0\u00A0****\u00A0\u00A0****";
     const lastFour = cardNumber.slice(-4);
     return `****\u00A0\u00A0****\u00A0\u00A0****\u00A0\u00A0${lastFour}`;
   };
-
   const getCardType = (cardNumber) => {
     if (!cardNumber) return "visa";
     const firstDigit = cardNumber.charAt(0);
@@ -54,17 +57,40 @@ function PaymentMethod({
     return cardType === "mastercard" ? masterCardLogo : visaLogo;
   };
 
+  const handleCardUpdate = (card) => {
+    console.log("Updating card:", card); // open modal and set card data
+    // This function should open a modal with the card details pre-filled for editing
+    setSelectedUpdate(card);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setSelectedUpdate(null);
+  };
+
+  const handleUpdateSubmit = async () => {
+    const response = await apiService.updateCard(selectedUpdate);
+    if (response.success) {
+      showAlert(response.data, "success");
+    } else {
+      showAlert(`Error: ${response.error}`, "error");
+    }
+    onRefresh();
+    handleModalClose();
+  };
+
   async function handleChangeDefaultCard(cardId) {
     const userId = JSON.parse(localStorage.getItem("user"))?.id;
     console.log("Setting default card for user:", userId, "Card ID:", cardId);
     const response = await apiService.setDefaultCard({ userId, cardId });
     if (response.success) {
-      alert("Default card updated successfully.");
+      showAlert("Default card updated successfully!", "success");
       onRefresh();
     } else {
-      alert(`Error: ${response.error}`);
+      showAlert(`Error: ${response.error}`, "error");
     }
-    setSelectedCard(-1); // ✅ FIX: corrected from SetSelectedCard
+    setSelectedCard(-1);
   }
 
   return (
@@ -153,7 +179,12 @@ function PaymentMethod({
                           ? "rgba(76, 175, 80, 0.1)"
                           : "rgba(76, 175, 80, 0.05)"
                         : "transparent",
-                    borderColor: card.setAsDefault === 1 ? "success.main" : undefined,
+                    borderColor:
+                      card.setAsDefault === 1
+                        ? "success.main"
+                        : selectedCard === card.id
+                        ? "primary.main"
+                        : "transparent",
                   }}
                   onClick={() => {
                     setSelectedCard(card.id);
@@ -195,7 +226,12 @@ function PaymentMethod({
                     </MDTypography>
                   </MDBox>
 
-                  <MDBox ml="auto" lineHeight={0} color={darkMode ? "white" : "dark"}>
+                  <MDBox
+                    ml="auto"
+                    lineHeight={0}
+                    color={darkMode ? "white" : "dark"}
+                    onClick={() => handleCardUpdate(card)}
+                  >
                     <Tooltip title="Edit Card" placement="top">
                       <Icon sx={{ cursor: "pointer" }} fontSize="small">
                         edit
@@ -208,6 +244,13 @@ function PaymentMethod({
           </Grid>
         )}
       </MDBox>
+      <GenericModal
+        open={isModalOpen}
+        handleClose={handleModalClose}
+        card={selectedUpdate}
+        setCard={setSelectedUpdate}
+        handleSubmit={handleUpdateSubmit}
+      />
     </Card>
   );
 }

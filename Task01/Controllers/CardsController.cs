@@ -7,7 +7,7 @@ namespace Task01.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class CardsController : ControllerBase
     {
         private readonly ICardService _cardService;
@@ -42,6 +42,15 @@ namespace Task01.Controllers
 
             var createdCard = _cardService.AddCard(userCard);
             return CreatedAtAction(nameof(GetAllCards), new { userId = createdCard.UserId }, createdCard);
+        }
+
+        [HttpPut("update/{cardId}")]
+        public IActionResult UpdateCard(int cardId, [FromBody] UserCard userCard) //cardId only provided in the URL
+        { 
+            if (userCard == null)
+                return BadRequest("Invalid card data.");
+            _cardService.UpdateCard(cardId, userCard);
+            return Ok("Card updated successfully.");
         }
 
         [HttpPut("setDefault")]

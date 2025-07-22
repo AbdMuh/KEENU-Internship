@@ -16,6 +16,7 @@ Coded by www.creative-tim.com
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import { AlertProvider } from "context/AlertContext";
 import App from "App";
 
 // Material Dashboard 2 React Context Provider
@@ -27,7 +28,9 @@ const root = createRoot(container);
 root.render(
   <BrowserRouter>
     <MaterialUIControllerProvider>
-      <App />
+      <AlertProvider>
+        <App />
+      </AlertProvider>
     </MaterialUIControllerProvider>
   </BrowserRouter>
 );

@@ -35,8 +35,8 @@ namespace Task01.Middlewares
                 var responseObject = new
                 {
                     statusCode = context.Response.StatusCode,
-                    message = GetMessage(context.Response.StatusCode),
-                    data = TryParseJson(bodyText)
+                    message = GetMessage(context.Response.StatusCode), // hardcoded message assigner 
+                    data = TryParseJson(bodyText) // The message passed in badrequest objects, like NotFound()
                 };
 
                 var wrappedJson = JsonSerializer.Serialize(responseObject);
@@ -51,7 +51,7 @@ namespace Task01.Middlewares
                 {
                     statusCode = 500,
                     message = "Unhandled server error",
-                    error = ex.Message
+                    error = ex.Message  // The default error messages of exceptions 
                 };
                 var errorJson = JsonSerializer.Serialize(errorResponse);
                 await context.Response.WriteAsync(errorJson);

@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 
 namespace Task01.Middlewares
-{
+{  // No use, since standard response middleware handles everything 
     public class ErrorHandlingMiddleware
     {
         private readonly RequestDelegate _next;

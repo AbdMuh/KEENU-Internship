@@ -240,11 +240,23 @@ const apiService = {
   addCard: async (cardInfo) => {
     try {
       const response = await apiClient.post(`/Cards/add`, cardInfo);
-      return { success: true, data: response.data.data };
+      return { success: true, data: "Card Added Successfully" || response.data.message };
     } catch (error) {
       return {
         success: false,
         error: error.response?.data?.message || "Failed to add card",
+      };
+    }
+  },
+
+  updateCard: async (cardInfo) => {
+    try {
+      const response = await apiClient.put(`/Cards/update/${cardInfo.id}`, cardInfo);
+      return { success: true, data: response.data.data };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.response?.data?.message || "Failed to update card",
       };
     }
   },

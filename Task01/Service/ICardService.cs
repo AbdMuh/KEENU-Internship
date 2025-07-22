@@ -9,5 +9,7 @@ namespace UserApi.Services
         void SetDefaultCard(int userId, int cardId);
 
         UserCard GetDefaultCard(int userId);
+
+        void UpdateCard(int cardId, UserCard userCard);
     }
 }
