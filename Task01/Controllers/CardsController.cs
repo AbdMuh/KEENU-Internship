@@ -56,6 +56,11 @@ namespace Task01.Controllers
         [HttpPut("setDefault")]
         public IActionResult SetDefaultCard([FromBody] CardInfo cardInfo)
         {
+            UserCard existingDefaultCard = _cardService.GetDefaultCard(cardInfo.UserId);
+            if(existingDefaultCard.Id == cardInfo.CardId)
+            {
+                return Ok("The Card is already on Display");
+            }
             _cardService.SetDefaultCard(cardInfo.UserId, cardInfo.CardId);
             return Ok("Card display preference updated successfully.");
         }
@@ -63,6 +68,10 @@ namespace Task01.Controllers
         public ActionResult<UserCard> getDefault(int userId)
         {
            UserCard card = _cardService.GetDefaultCard(userId);
+            if(card == null)
+            {
+                return NotFound("No Display Card Found for this User");
+            }
             return Ok(card);
         }
     }

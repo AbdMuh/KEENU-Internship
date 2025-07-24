@@ -66,21 +66,17 @@ function Cover() {
   const validate = () => {
     const newErrors = {};
 
-    // Name validation
     if (!formData.name.trim()) {
       newErrors.name = "Name is required.";
     } else if (formData.name.trim().length < 2) {
       newErrors.name = "Name must be at least 2 characters long.";
     }
-
-    // Email validation
     if (!formData.email.trim()) {
       newErrors.email = "Email is required.";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Please enter a valid email address.";
     }
 
-    // Username validation
     if (!formData.username.trim()) {
       newErrors.username = "Username is required.";
     } else if (formData.username.trim().length < 3) {
@@ -106,11 +102,9 @@ function Cover() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Clear previous errors and messages
     setApiError("");
     setSuccessMessage("");
 
-    // Validate form first
     if (!validate()) {
       return;
     }
@@ -136,7 +130,6 @@ function Cover() {
       if (result.success) {
         setSuccessMessage("Account created successfully! Redirecting to sign in...");
 
-        // Clear form data
         setFormData({
           name: "",
           email: "",
@@ -145,7 +138,6 @@ function Cover() {
           agree: false,
         });
 
-        // Redirect to sign in page after 2 seconds
         setTimeout(() => {
           navigate("/authentication/sign-in");
         }, 2000);

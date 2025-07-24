@@ -78,7 +78,8 @@ namespace Task01.Controllers
                         expiration = DateTime.Now.AddMinutes(_jwtSettings.Expiration),
                         username = Username,
                         id = user.UserId,
-                        name = Name
+                        name = Name,
+                        userRole = role
                     });
                 }
 

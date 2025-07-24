@@ -182,7 +182,7 @@ function Billing() {
 
   return (
     <DashboardLayout>
-      <DashboardNavbar absolute isMini />
+      <DashboardNavbar />
       <MDBox mt={8}>
         {/* Error Display Section */}
         {(apiError.displayCardError || apiError.paymentMethodError) && (

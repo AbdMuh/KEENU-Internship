@@ -5,6 +5,8 @@ import Icon from "@mui/material/Icon";
 import { Grid } from "@mui/material";
 
 export default function usersTableData(users = [], onDelete, onUpdate) {
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log("usersTableData called with users:", user.userRole);
   return {
     columns: [
       { Header: "ID", accessor: "id", align: "center" },
@@ -63,20 +65,22 @@ export default function usersTableData(users = [], onDelete, onUpdate) {
             </MDButton>
           </Grid>
           <Grid item>
-            <MDButton
-              color="error"
-              size="small"
-              onClick={() => {
-                const confirmDelete = window.confirm(
-                  `Are you sure you want to Delete User ${u.name}?`
-                );
-                if (confirmDelete && onDelete) {
-                  onDelete(u.id);
-                }
-              }}
-            >
-              <Icon>delete</Icon>&nbsp;Delete
-            </MDButton>
+            {user.role == "Admin" && (
+              <MDButton
+                color="error"
+                size="small"
+                onClick={() => {
+                  const confirmDelete = window.confirm(
+                    `Are you sure you want to Delete User ${u.name}?`
+                  );
+                  if (confirmDelete && onDelete) {
+                    onDelete(u.id);
+                  }
+                }}
+              >
+                <Icon>delete</Icon>&nbsp;Delete
+              </MDButton>
+            )}
           </Grid>
         </Grid>
       ),

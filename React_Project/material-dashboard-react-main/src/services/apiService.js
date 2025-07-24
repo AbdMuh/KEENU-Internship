@@ -1,4 +1,5 @@
 import axios from "axios";
+// import { useAuth } from "AuthProvider";
 
 // Read environment variables from Vite (must be prefixed with VITE_)
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://localhost:7245/";
@@ -50,22 +51,22 @@ const apiService = {
       console.log("Login response:", response.data);
 
       // Fix: Handle different response structures
-      const data = response.data.data || response.data;
+      const data = response.data.data;
 
       if (data?.token) {
         localStorage.setItem("authToken", data.token);
       }
 
       const user = {
-        id: data?.user?.id || data?.id,
-        name: data?.user?.name || data?.name,
-        email: data?.user?.email || data?.email,
-        role: data?.user?.role || data?.role,
-        username: data?.user?.username || data?.username,
+        id: data?.id,
+        name: data?.name,
+        role: data?.userRole,
+        username: data?.username,
         token: data?.token,
         expiration: data?.expiration,
       };
 
+      console.log("Parsed user data:", user);
       localStorage.setItem("user", JSON.stringify(user));
 
       return { success: true, user, data };
@@ -132,7 +133,7 @@ const apiService = {
   getUserData: async () => {
     try {
       const response = await apiClient.get("/Users/user");
-      return { success: true, data: response.data.data || response.data };
+      return { success: true, data: response.data.data };
     } catch (error) {
       return {
         success: false,
@@ -171,7 +172,7 @@ const apiService = {
     try {
       console.log("Updating user with ID:", id, "and data:", userData);
       const response = await apiClient.put(`/Users/update/${id}`, userData);
-      return { success: true, data: response.data.data || response.data };
+      return { success: true, data: response.data.data };
     } catch (error) {
       return {
         success: false,
@@ -232,7 +233,7 @@ const apiService = {
     } catch (error) {
       return {
         success: false,
-        error: error.response?.data?.message || "Failed to fetch cards", //error message from API
+        error: error.response?.data?.data || "Failed to fetch cards", //error message from API
       };
     }
   },

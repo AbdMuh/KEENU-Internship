@@ -85,7 +85,7 @@ function PaymentMethod({
     console.log("Setting default card for user:", userId, "Card ID:", cardId);
     const response = await apiService.setDefaultCard({ userId, cardId });
     if (response.success) {
-      showAlert("Default card updated successfully!", "success");
+      showAlert(response.data, "success");
       onRefresh();
     } else {
       showAlert(`Error: ${response.error}`, "error");
