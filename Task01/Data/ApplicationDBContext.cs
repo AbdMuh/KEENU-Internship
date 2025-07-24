@@ -11,6 +11,8 @@ namespace Task01.Data
         public DbSet<User> Users { get; set; }
         public DbSet<LoginUser> LoginUsers { get; set; }
         public DbSet<UserCard> UserCards { get; set; }
+        public DbSet<UserRole> Roles { get; set; }
+        public DbSet<UserPermission> Permissions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,7 +29,14 @@ namespace Task01.Data
                 .WithOne(l => l.User)
                 .HasForeignKey<LoginUser>(l => l.UserId)
                 .IsRequired()
-                .OnDelete(DeleteBehavior.Cascade); 
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<UserRole>()
+                .HasMany(ur => ur.Permissions)
+                .WithMany(u => u.Roles)
+                .UsingEntity(j => j.ToTable("UserRolePermissions"));
+        }
+
 
             //modelBuilder.Entity<UserCard>()
             //    .HasOne(uc => uc.User)
@@ -36,4 +45,3 @@ namespace Task01.Data
             //    .OnDelete(DeleteBehavior.Cascade); 
         }
     }
-}

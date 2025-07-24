@@ -20,12 +20,15 @@ namespace UserApi.Services
         .ToList();
         }
 
+        public UserRole GetUserRole(string roleName)
+        {
+            return _context.Roles.Include(u => u.Permissions).FirstOrDefault(r => r.name == roleName);
+        }
         public User? GetUserById(int id)
         {
             var user = _context.Users.FirstOrDefault(u => u.Id == id);
             return user;
         }
-
         public User? FindUserByEmail(string email)
         {
             var user = _context.Users.FirstOrDefault(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));

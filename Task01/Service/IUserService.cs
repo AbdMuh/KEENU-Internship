@@ -10,5 +10,6 @@ namespace UserApi.Services
         IEnumerable<User> GetAllUsers();
         User? GetUserById(int id);
         User? UpdateUser(User user);
+        UserRole GetUserRole(string roleName);
     }
 }

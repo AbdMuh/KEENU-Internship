@@ -541,7 +541,6 @@
       "LoginUser": {
         "required": [
           "password",
-          "role",
           "username"
         ],
         "type": "object",
@@ -558,9 +557,9 @@
             "type": "string",
             "nullable": true
           },
-          "role": {
-            "type": "string",
-            "nullable": true
+          "roleId": {
+            "type": "integer",
+            "format": "int32"
           },
           "userId": {
             "type": "integer",

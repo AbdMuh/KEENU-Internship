@@ -18,22 +18,21 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { AlertProvider } from "context/AlertContext";
 import App from "App";
-
+import { AuthProvider } from "AuthProvider";
 // Material Dashboard 2 React Context Provider
 import { MaterialUIControllerProvider } from "context";
-import { AuthProvider } from "AuthProvider";
 
 const container = document.getElementById("app");
 const root = createRoot(container);
 
 root.render(
   <BrowserRouter>
-    <AuthProvider>
-      <MaterialUIControllerProvider>
-        <AlertProvider>
+    <MaterialUIControllerProvider>
+      <AlertProvider>
+        <AuthProvider>
           <App />
-        </AlertProvider>
-      </MaterialUIControllerProvider>
-    </AuthProvider>
+        </AuthProvider>
+      </AlertProvider>
+    </MaterialUIControllerProvider>
   </BrowserRouter>
 );

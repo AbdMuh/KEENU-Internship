@@ -9,7 +9,12 @@ namespace Task01.Model
 
         public required string Username { get; set; }
         public required string Password { get; set; }
-        public required string Role { get; set; }
+        //public required string Role { get; set; }
+
+        public int RoleId { get; set; }
+
+        [JsonIgnore]
+        public UserRole? Role { get; set; }
 
         public int UserId { get; set; }  // FK to User
 

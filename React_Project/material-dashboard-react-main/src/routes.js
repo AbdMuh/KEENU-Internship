@@ -86,7 +86,7 @@ const routes = [
     // icon: <Icon fontSize="small">edit</Icon>,
     route: "/updateUser/:id",
     component: (
-      <ProtectedRoute>
+      <ProtectedRoute requiredPermission="edit_users">
         <UpdateUser />
       </ProtectedRoute>
     ),
@@ -110,7 +110,7 @@ const routes = [
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/tables",
     component: (
-      <ProtectedRoute>
+      <ProtectedRoute requiredPermission="view_users">
         <Tables />
       </ProtectedRoute>
     ),

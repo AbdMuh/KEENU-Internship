@@ -22,7 +22,6 @@ import apiService from "services/apiService";
 
 function Cover() {
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",

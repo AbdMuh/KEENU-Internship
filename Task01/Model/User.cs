@@ -13,6 +13,7 @@ public class User
     [JsonIgnore] //Ignore or exclude Usercards From Requests and Responses
     public List<UserCard> UserCards { get; set; } = new(); //many-to-one navigaton property
 
-
-
 }
+
+
+

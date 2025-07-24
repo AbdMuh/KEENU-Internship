@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Task01.Model;
@@ -8,6 +9,7 @@ namespace UserApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+
     [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any, NoStore = false)]
     public class UsersController : ControllerBase
     {
@@ -20,6 +22,7 @@ namespace UserApi.Controllers
 
 
         [HttpGet]
+        [Authorize]
         [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)] //disabling cache
         public ActionResult<IEnumerable<User>> GetAll()
         {
@@ -28,7 +31,8 @@ namespace UserApi.Controllers
             //return Ok($"Useres Loaded at: {DateTime.UtcNow}");
         }
 
-        [Authorize(Roles = "Admin,Manager")]
+        //[Authorize(Roles = "Admin,Manager")]
+        [Authorize(Policy = "CanEditUsers")]
         [HttpGet("admin")]
         public IActionResult GetSecureAdminData()
         {
@@ -38,7 +42,7 @@ namespace UserApi.Controllers
             return Ok($"Welcome Mr.{name}, your  is {email}");
         }
 
-        [Authorize(Roles = "User")]
+        [Authorize(Policy = "CanViewUsers")]
         [HttpGet("user")]
         public IActionResult GetSecureUserData()
         {
@@ -62,25 +66,32 @@ namespace UserApi.Controllers
         [HttpPost]
         public ActionResult<User> Create([FromBody] User user)
         {
-
             Console.WriteLine($"Creating user: {user.loginUser.Username}, Email: {user.Email}");
-            user.loginUser.Role = "User";
+
+            var role = _userService.GetUserRole("User");
+            if (role == null)
+                return BadRequest("Default role 'User' not found.");
+
+            // Assign full role object
+            user.loginUser.Role = role;
+
             if (user == null ||
-                string.IsNullOrWhiteSpace(user.Name) ||  
+                string.IsNullOrWhiteSpace(user.Name) ||
                 string.IsNullOrWhiteSpace(user.Email) ||
                 user.loginUser == null ||
                 string.IsNullOrWhiteSpace(user.loginUser.Username) ||
-                string.IsNullOrWhiteSpace(user.loginUser.Password) ||
-                string.IsNullOrWhiteSpace(user.loginUser.Role))
+                string.IsNullOrWhiteSpace(user.loginUser.Password))
             {
                 return BadRequest("Invalid user or login data.");
             }
-            _userService.CreateUser(user); // Make sure this saves both user & login
+
+            _userService.CreateUser(user);
             return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
         }
 
 
         [HttpDelete("delete/{id}")]
+        [Authorize(Policy = "CanEditUsers")]
         public ActionResult Delete(int id)
         {
             try
@@ -101,8 +112,10 @@ namespace UserApi.Controllers
         }
 
         [HttpPut("update/{id}")]
+        [Authorize(Policy = "CanEditUsers")]
         public ActionResult<User> Update(int id, [FromBody] User user)
         {
+            Console.WriteLine("Entering Update");
             if (user == null)
                 return BadRequest("Request body is null.");
 

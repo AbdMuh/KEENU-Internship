@@ -18,7 +18,6 @@ const apiClient = axios.create({
   },
 });
 
-// Attach token to each request if available
 apiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("authToken");
@@ -27,7 +26,7 @@ apiClient.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error) //error is predeifned error-handling function in interceptor
+  (error) => Promise.reject(error)
 );
 
 // Handle 401 globally
@@ -37,7 +36,11 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem("authToken");
       localStorage.removeItem("user");
-      window.location.href = "/authentication/sign-in"; // Fixed redirect path
+      if (localStorage.getItem("user")) {
+        window.location.href = "/dashboard";
+      } else {
+        window.location.href = "/authentication/sign-in";
+      }
     }
     return Promise.reject(error);
   }
@@ -64,6 +67,7 @@ const apiService = {
         username: data?.username,
         token: data?.token,
         expiration: data?.expiration,
+        permissions: data?.permissions,
       };
 
       console.log("Parsed user data:", user);

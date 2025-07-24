@@ -68,6 +68,17 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("CanViewUsers", policy =>
+        policy.RequireClaim("permissions", "view_users"));
+
+    options.AddPolicy("CanEditUsers", policy =>
+        policy.RequireClaim("permissions", "edit_users"));
+});
+
+
 builder.Services.AddResponseCaching();
 
 var app = builder.Build();

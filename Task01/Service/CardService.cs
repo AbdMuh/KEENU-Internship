@@ -24,7 +24,7 @@ namespace UserApi.Services
 
         public UserCard AddCard(UserCard userCard)
         {
-            if(userCard.SetAsDefault == 1)
+            if (userCard.SetAsDefault == 1)
             {
                 SetDefaultCard(userCard.UserId, userCard.Id);
             }
@@ -65,18 +65,18 @@ namespace UserApi.Services
 
             foreach (var card in userCards)
             {
-                if(count == 0)
+                if (count == 0)
                 {
                     defaultCard = card;
                 }
-                if(card.SetAsDefault != 0)
+                if (card.SetAsDefault != 0)
                 {
                     return (card);
                 }
                 count++;
             }
             return defaultCard;
-            
+
         }
     }
 }

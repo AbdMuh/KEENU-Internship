@@ -28,63 +28,70 @@ namespace Task01.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] CurrentLogin currentLogin)
         {
-
             if (currentLogin == null || string.IsNullOrEmpty(currentLogin.username) || string.IsNullOrEmpty(currentLogin.password))
             {
                 return BadRequest("Invalid login request.");
-            } else
+            }
+
+            // Load user, related User object, Role, and Permissions
+            var user = _dbContext.LoginUsers
+                .Include(u => u.User)
+                .Include(u => u.Role)
+                .ThenInclude(r => r.Permissions)
+                .FirstOrDefault(u => u.Username == currentLogin.username && u.Password == currentLogin.password);
+
+            if (user == null)
             {
-                //var user = _dbContext.LoginUsers          ERROR CODE
-                //.FirstOrDefault(u => u.Username == currentLogin.username && u.Password == currentLogin.password);
-                var user = _dbContext.LoginUsers
-    .Include(l => l.User)
-    .FirstOrDefault(u => u.Username == currentLogin.username && u.Password == currentLogin.password);
+                return Unauthorized("Invalid credentials.");
+            }
 
-                if (user == null) {
-                    return Unauthorized("Invalid credentials.");
+            // Extract data
+            var name = user.User.Name;
+            var email = user.User.Email;
+            var role = user.Role.name;
+            var username = user.Username;
+            var permissionNames = user.Role.Permissions.Select(p => p.Name).ToList();
 
-                }
-                else
-                {
-                    //var Name = _dbContext.Users
-                    //    .Where(u => u.Id == user.UserId).Select(u => u.Name)    ERROR CODE
-                    //    .FirstOrDefault();
-                    //var email = _dbContext.Users.Where(u => u.Id == user.Id).Select(u => u.Email).FirstOrDefault(); 
+            // Build claims list
+            var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.Name, name),
+        new Claim(ClaimTypes.Email, email),
+        new Claim(ClaimTypes.Role, role),
+        new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString())
+    };
 
-                    var Name = user.User.Name;
-                    var email = user.User.Email;
-                    var role = user.Role;
-                    var Username = user.Username;
+            // Add permissions as custom claims
+            foreach (var permission in permissionNames)
+            {
+                claims.Add(new Claim("permissions", permission));
+            }
 
+            // Create token
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.key));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var expiration = DateTime.Now.AddMinutes(_jwtSettings.Expiration);
 
-                    var claims = new[]
-                    {
-                        new Claim(ClaimTypes.Name, Name),
-                        new Claim(ClaimTypes.Role, role),
-                        new Claim(ClaimTypes.Email, email),
-                    };
-                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.key)); //atleast 16 characters long
-                    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                    var token = new JwtSecurityToken(
-                        issuer: _jwtSettings.Issuer,
-                        audience: _jwtSettings.Audience,
-                        claims: claims,
-                        expires: DateTime.Now.AddMinutes(_jwtSettings.Expiration),
-                        signingCredentials: creds);
+            var token = new JwtSecurityToken(
+                issuer: _jwtSettings.Issuer,
+                audience: _jwtSettings.Audience,
+                claims: claims,
+                expires: expiration,
+                signingCredentials: creds
+            );
 
-                    return Ok(new
-                    {
-                        token = new JwtSecurityTokenHandler().WriteToken(token),
-                        expiration = DateTime.Now.AddMinutes(_jwtSettings.Expiration),
-                        username = Username,
-                        id = user.UserId,
-                        name = Name,
-                        userRole = role
-                    });
-                }
-
-                   
-                }
+            // Return token and additional data
+            return Ok(new
+            {
+                token = new JwtSecurityTokenHandler().WriteToken(token),
+                expiration,
+                username,
+                id = user.UserId,
+                name,
+                userRole = role,
+                permissions = permissionNames
+            });
         }
+
     }
 }

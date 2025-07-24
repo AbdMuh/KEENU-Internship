@@ -2,38 +2,40 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 const AuthContext = createContext(null);
-export function useAuth() {
+
+export const useAuth = () => {
   return useContext(AuthContext);
-}
+};
 
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(() => {
     const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
+
+  const login = (userData) => {
+    setUser(userData);
+  };
+
+  const hasPermission = (permission) => {
+    if (!user || !user.permissions) return false;
+    return user.permissions.includes(permission);
+  };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("user");
-    localStorage.removeItem("authToken");
   };
-
-  const login = (userData, token) => {
-    setUser(userData);
-    localStorage.setItem("user", JSON.stringify(userData));
-    localStorage.setItem("authToken", token);
+  const isAuthenticated = () => {
+    return user !== null;
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isLoggedIn: !!user }}>
+    <AuthContext.Provider value={{ user, login, logout, isAuthenticated, hasPermission }}>
       {children}
     </AuthContext.Provider>
   );
-}
+};
+
 AuthProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };

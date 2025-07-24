@@ -3,10 +3,12 @@ import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 import Icon from "@mui/material/Icon";
 import { Grid } from "@mui/material";
+import { useAuth } from "AuthProvider";
 
 export default function usersTableData(users = [], onDelete, onUpdate) {
-  const user = JSON.parse(localStorage.getItem("user"));
-  console.log("usersTableData called with users:", user.userRole);
+  const { user, hasPermission } = useAuth();
+  console.log("usersTableData called with role:", user?.userRole);
+
   return {
     columns: [
       { Header: "ID", accessor: "id", align: "center" },
@@ -40,32 +42,37 @@ export default function usersTableData(users = [], onDelete, onUpdate) {
       ),
       actions: (
         <Grid container spacing={1}>
-          <Grid item>
-            <MDButton
-              color="info"
-              size="small"
-              onClick={() => {
-                const confirmUpdate = window.confirm(`Are you sure you want to Update ${u.name}?`);
-                console.log("loginUser.id = ", u.loginUser?.id);
+          {hasPermission("edit_users") && (
+            <Grid item>
+              <MDButton
+                color="info"
+                size="small"
+                onClick={() => {
+                  const confirmUpdate = window.confirm(
+                    `Are you sure you want to Update ${u.name}?`
+                  );
+                  console.log("loginUser.id = ", u.loginUser?.id);
 
-                if (confirmUpdate && onUpdate) {
-                  onUpdate(u.id, {
-                    id: u.id,
-                    name: u.name,
-                    email: u.email,
-                    loginId: u.loginUser?.id,
-                    role: u.loginUser?.role || "user",
-                    username: u.loginUser?.username || "",
-                    password: u.loginUser?.password || "",
-                  });
-                }
-              }}
-            >
-              <Icon>edit</Icon>&nbsp;Update
-            </MDButton>
-          </Grid>
-          <Grid item>
-            {user.role == "Admin" && (
+                  if (confirmUpdate && onUpdate) {
+                    onUpdate(u.id, {
+                      id: u.id,
+                      name: u.name,
+                      email: u.email,
+                      loginId: u.loginUser?.id,
+                      role: u.loginUser?.role || "user",
+                      username: u.loginUser?.username || "",
+                      password: u.loginUser?.password || "",
+                    });
+                  }
+                }}
+              >
+                <Icon>edit</Icon>&nbsp;Update
+              </MDButton>
+            </Grid>
+          )}
+
+          {hasPermission("edit_users") && (
+            <Grid item>
               <MDButton
                 color="error"
                 size="small"
@@ -80,8 +87,8 @@ export default function usersTableData(users = [], onDelete, onUpdate) {
               >
                 <Icon>delete</Icon>&nbsp;Delete
               </MDButton>
-            )}
-          </Grid>
+            </Grid>
+          )}
         </Grid>
       ),
     })),

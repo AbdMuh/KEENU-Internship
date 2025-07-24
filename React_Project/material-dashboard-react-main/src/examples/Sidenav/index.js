@@ -39,6 +39,8 @@ import SidenavCollapse from "examples/Sidenav/SidenavCollapse";
 // Custom styles for the Sidenav
 import SidenavRoot from "examples/Sidenav/SidenavRoot";
 import sidenavLogoLabel from "examples/Sidenav/styles/sidenav";
+import { useAuth } from "AuthProvider";
+import apiService from "services/apiService";
 
 // Material Dashboard 2 React context
 import {
@@ -54,13 +56,18 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
   const location = useLocation();
   const collapseName = location.pathname.replace("/", "");
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     const confirmLogout = window.confirm("Are you sure you want to log out?");
     if (confirmLogout) {
-      localStorage.removeItem("user");
-      localStorage.removeItem("token"); // optional if you store a JWT
-      navigate("/authentication/sign-in");
+      const response = await apiService.logout();
+      if (response.success) {
+        logout();
+        navigate("/authentication/sign-in");
+      } else {
+        alert("Logout failed. Please try again.");
+      }
     }
   };
 

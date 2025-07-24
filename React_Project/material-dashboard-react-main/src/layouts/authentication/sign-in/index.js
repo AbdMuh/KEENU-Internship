@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // For redirect
 import { Link } from "react-router-dom";
 import { useEffect } from "react"; // Already likely imported
+import { useAuth } from "AuthProvider";
 
 // @mui components
 import Card from "@mui/material/Card";
@@ -30,6 +31,7 @@ import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 import apiService from "services/apiService";
 
 function SignIn() {
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -104,6 +106,7 @@ function SignIn() {
       console.log("Login result:", result);
 
       if (result.success) {
+        login(result.user);
         navigate("/dashboard");
       } else {
         setApiError(result.error || "Login failed. Please try again.");
