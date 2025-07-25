@@ -7,7 +7,7 @@ import { useAuth } from "AuthProvider";
 
 export default function usersTableData(users = [], onDelete, onUpdate) {
   const { user, hasPermission } = useAuth();
-  console.log("usersTableData called with role:", user?.userRole);
+  console.log("usersTableData called with role:", user?.role);
 
   return {
     columns: [

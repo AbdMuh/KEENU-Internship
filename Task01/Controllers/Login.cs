@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Text;
 using Task01.Data;
@@ -25,15 +26,42 @@ namespace Task01.Controllers
             _dbContext = dBContext;
         }
 
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized("No token provided.");
+            }
+            var userToken = await _dbContext.UserTokens
+                .FirstOrDefaultAsync(t => t.Token == token);
+
+            if (userToken == null)
+            {
+                return Unauthorized("Invalid token.");
+            }
+            userToken.IsActive = false;
+            _dbContext.UserTokens.Remove(userToken);
+
+            await _dbContext.SaveChangesAsync();
+            return Ok("Successfully logged out.");
+        }
+
+
         [HttpPost("login")]
         public IActionResult Login([FromBody] CurrentLogin currentLogin)
         {
+            Console.WriteLine("Hello User");
+
+            // Validate login input
             if (currentLogin == null || string.IsNullOrEmpty(currentLogin.username) || string.IsNullOrEmpty(currentLogin.password))
             {
                 return BadRequest("Invalid login request.");
             }
 
-            // Load user, related User object, Role, and Permissions
+            // Find the user based on username and password
             var user = _dbContext.LoginUsers
                 .Include(u => u.User)
                 .Include(u => u.Role)
@@ -45,14 +73,25 @@ namespace Task01.Controllers
                 return Unauthorized("Invalid credentials.");
             }
 
-            // Extract data
+            // Find and deactivate any previously active token for this user
+            var loggedInUser = _dbContext.UserTokens
+                .Where(t => t.UserId == user.UserId && t.IsActive)
+                .FirstOrDefault();
+
+            if (loggedInUser != null)
+            {
+                loggedInUser.IsActive = false; 
+                _dbContext.UserTokens.Remove(loggedInUser);
+                _dbContext.SaveChanges();
+            }
+
+            // Prepare the claims for the JWT token
             var name = user.User.Name;
             var email = user.User.Email;
             var role = user.Role.name;
             var username = user.Username;
             var permissionNames = user.Role.Permissions.Select(p => p.Name).ToList();
 
-            // Build claims list
             var claims = new List<Claim>
     {
         new Claim(ClaimTypes.Name, name),
@@ -61,13 +100,12 @@ namespace Task01.Controllers
         new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString())
     };
 
-            // Add permissions as custom claims
             foreach (var permission in permissionNames)
             {
                 claims.Add(new Claim("permissions", permission));
             }
 
-            // Create token
+            // Generate the JWT token
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.key));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expiration = DateTime.Now.AddMinutes(_jwtSettings.Expiration);
@@ -80,7 +118,15 @@ namespace Task01.Controllers
                 signingCredentials: creds
             );
 
-            // Return token and additional data
+            _dbContext.UserTokens.Add(new UserToken
+            {
+                UserId = user.UserId,
+                Token = new JwtSecurityTokenHandler().WriteToken(token),
+                IsActive = true, 
+                Expiration = expiration
+            });
+            
+            _dbContext.SaveChanges(); 
             return Ok(new
             {
                 token = new JwtSecurityTokenHandler().WriteToken(token),
@@ -92,6 +138,7 @@ namespace Task01.Controllers
                 permissions = permissionNames
             });
         }
+
 
     }
 }

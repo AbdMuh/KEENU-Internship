@@ -92,10 +92,11 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
-// Use CORS - Must be before UseAuthentication and UseAuthorization
+//Must be before UseAuthentication and UseAuthorization
 app.UseCors("ReactApp");
 
 app.UseResponseCaching();
+app.UseMiddleware<SingleSessionManager>();
 app.UseAuthentication(); //comes before authorization
 app.UseAuthorization();
 app.UseStaticFiles();

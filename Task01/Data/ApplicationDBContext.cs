@@ -14,6 +14,8 @@ namespace Task01.Data
         public DbSet<UserRole> Roles { get; set; }
         public DbSet<UserPermission> Permissions { get; set; }
 
+        public DbSet<UserToken> UserTokens { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder); // always call base
@@ -23,6 +25,12 @@ namespace Task01.Data
                 .WithOne(uc => uc.User)
                 .HasForeignKey(uc => uc.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<UserToken>()
+            .HasOne(ut => ut.User)    
+            .WithMany()                      // User can have many tokens (no navigation property needed on User)
+            .HasForeignKey(ut => ut.UserId)  
+            .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<User>()
                 .HasOne(u => u.loginUser)

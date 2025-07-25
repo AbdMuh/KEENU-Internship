@@ -44,6 +44,7 @@ function SignIn() {
     const existingUser = localStorage.getItem("user");
     if (existingUser) {
       localStorage.removeItem("user");
+      localStorage.removeItem("authToken");
       console.log("Cleared existing user from localStorage.");
     }
   }, []);

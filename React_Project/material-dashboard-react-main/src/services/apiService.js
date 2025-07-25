@@ -1,4 +1,5 @@
 import axios from "axios";
+
 // import { useAuth } from "AuthProvider";
 
 // Read environment variables from Vite (must be prefixed with VITE_)
@@ -22,6 +23,7 @@ apiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("authToken");
     if (token) {
+      console.log("Using token for request:", token);
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
@@ -29,7 +31,6 @@ apiClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Handle 401 globally
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -53,7 +54,6 @@ const apiService = {
       const response = await apiClient.post("/Auth/login", credentials); //error
       console.log("Login response:", response.data);
 
-      // Fix: Handle different response structures
       const data = response.data.data;
 
       if (data?.token) {
@@ -188,14 +188,21 @@ const apiService = {
 
   logout: async () => {
     try {
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("user");
-      return { success: true };
+      const response = await axios.post("/Auth/logout");
+
+      if (response.status === 200) {
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("user");
+        return { success: true };
+      } else {
+        console.error("Logout failed on server.");
+        return { success: false };
+      }
     } catch (error) {
       console.error("Logout error:", error);
       localStorage.removeItem("authToken");
       localStorage.removeItem("user");
-      return { success: true };
+      return { success: false };
     }
   },
 

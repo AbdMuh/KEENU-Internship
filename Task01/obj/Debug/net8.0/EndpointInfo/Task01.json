@@ -5,6 +5,18 @@
     "version": "1.0"
   },
   "paths": {
+    "/Auth/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/Auth/login": {
       "post": {
         "tags": [
