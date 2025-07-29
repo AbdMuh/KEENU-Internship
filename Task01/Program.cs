@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer; // after installing package  
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog.Enrichers.WithCaller;
 using Serilog;
 using Serilog.Events;
 using System.Diagnostics;
@@ -9,20 +10,24 @@ using Task01.Data;
 using Task01.Middlewares;
 using Task01.Model;
 using UserApi.Services;
+using Serilog.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
-    .WriteTo.File(
-        path: "Logs/errors-.txt",
-        rollingInterval: RollingInterval.Day, //new file for each day
-        restrictedToMinimumLevel: LogEventLevel.Error, //with level error and above
-        outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss}] [{Level:u3}] {Message:lj}{NewLine}{Exception}"
-    )
+    .ReadFrom.Configuration(builder.Configuration) // <-- key line
+    .Enrich.FromLogContext()
+    .Enrich.WithExceptionDetails()
+    .Enrich.WithEnvironmentName()
+    .Enrich.WithMachineName()
+    .Enrich.WithProcessId()
+    .Enrich.WithProcessName()
     .CreateLogger();
 
 builder.Host.UseSerilog();
+
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt")); //binding Jwt Section to JwtSettings class
 
 builder.Services.AddControllers();
@@ -90,7 +95,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseMiddleware<RequestLogging>();
+
+//app.UseMiddleware<ErrorHandlingMiddleware>();
 
 //Must be before UseAuthentication and UseAuthorization
 app.UseCors("ReactApp");
@@ -101,20 +108,20 @@ app.UseAuthentication(); //comes before authorization
 app.UseAuthorization();
 app.UseStaticFiles();
 
-app.Use(async (ctx, next) =>
-{
-    Console.WriteLine("A - before");
-    await next(); // go to next middleware
-    Console.WriteLine("A - after");
-});
+//app.Use(async (ctx, next) =>
+//{
+//    Console.WriteLine("A - before");
+//    await next(); // go to next middleware
+//    Console.WriteLine("A - after");
+//});
 
-app.Use(async (ctx, next) => //ctx represents current request information (allowing us to modify) 
-// next, represents next middleware in the pipeline 
-{
-    Console.WriteLine("B - before");
-    await next();
-    Console.WriteLine("B - after");
-});
+//app.Use(async (ctx, next) => //ctx represents current request information (allowing us to modify) 
+//// next, represents next middleware in the pipeline 
+//{
+//    Console.WriteLine("B - before");
+//    await next();
+//    Console.WriteLine("B - after");
+//});
 
 app.Use(async (ctx, next) =>
 {

@@ -10,6 +10,8 @@ namespace Task01.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<LoginUser> LoginUsers { get; set; }
+
+        public DbSet<Transaction> Transactions { get; set; }
         public DbSet<UserCard> UserCards { get; set; }
         public DbSet<UserRole> Roles { get; set; }
         public DbSet<UserPermission> Permissions { get; set; }
@@ -43,6 +45,8 @@ namespace Task01.Data
                 .HasMany(ur => ur.Permissions)
                 .WithMany(u => u.Roles)
                 .UsingEntity(j => j.ToTable("UserRolePermissions"));
+
+            // Prevents deletion of sender if there are transactions
         }
 
 

@@ -8,6 +8,8 @@ public class User
     public required string  Name { get; set; }
     public required string Email { get; set; }
 
+    public decimal Balance { get; set; } = 0;
+
     public required LoginUser loginUser { get; set; } //one-to-one navigation property, every user has one loginUser must 
 
     [JsonIgnore] //Ignore or exclude Usercards From Requests and Responses

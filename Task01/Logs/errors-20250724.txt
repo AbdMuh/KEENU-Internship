@@ -1,4 +1,0 @@
-[2025-07-24 15:56:31] [ERR] Failed executing DbCommand (20ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-ALTER TABLE [LoginUsers] ADD CONSTRAINT [FK_LoginUsers_Roles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [Roles] ([Id]) ON DELETE CASCADE;
-[2025-07-24 16:04:47] [ERR] Failed executing DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-ALTER TABLE [LoginUsers] ADD CONSTRAINT [FK_LoginUsers_Roles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [Roles] ([Id]) ON DELETE CASCADE;

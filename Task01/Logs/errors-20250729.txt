@@ -1,0 +1,35 @@
+[2025-07-29 11:42:34] [INF] [LP-0200] [3712] [Task01] [Task01.Middlewares.RequestLogging] 7c1828ef-5b7c-493d-8c0f-f88e1cc356cf | Handling request: OPTIONS /Auth/login
+[2025-07-29 11:42:34] [INF] [LP-0200] [3712] [Task01] [Task01.Middlewares.RequestLogging] 7c1828ef-5b7c-493d-8c0f-f88e1cc356cf | Completed request OPTIONS /Auth/login
+[2025-07-29 11:42:34] [INF] [LP-0200] [3712] [Task01] [Task01.Middlewares.RequestLogging] e4dd94ef-998f-495b-a696-8e1e07c5185a | Handling request: POST /Auth/login
+[2025-07-29 11:42:34] [INF] [LP-0200] [3712] [Task01] [Task01.Middlewares.RequestLogging] e4dd94ef-998f-495b-a696-8e1e07c5185a | Completed request POST /Auth/login
+[2025-07-29 11:42:42] [INF] [LP-0200] [3712] [Task01] [Task01.Middlewares.RequestLogging] d4063f4f-8c02-4f2e-9435-025f1c727c11 | Handling request: OPTIONS /Cards/getDefault/34
+[2025-07-29 11:42:42] [INF] [LP-0200] [3712] [Task01] [Task01.Middlewares.RequestLogging] 9c8d9c02-847a-4656-b0ea-0a656cf25031 | Handling request: OPTIONS /Cards/GetAllCards/34
+[2025-07-29 11:42:42] [INF] [LP-0200] [3712] [Task01] [Task01.Middlewares.RequestLogging] d4063f4f-8c02-4f2e-9435-025f1c727c11 | Completed request OPTIONS /Cards/getDefault/34
+[2025-07-29 11:42:42] [INF] [LP-0200] [3712] [Task01] [Task01.Middlewares.RequestLogging] 9c8d9c02-847a-4656-b0ea-0a656cf25031 | Completed request OPTIONS /Cards/GetAllCards/34
+[2025-07-29 11:42:42] [INF] [LP-0200] [3712] [Task01] [Task01.Middlewares.RequestLogging] 49b0528b-3df8-4043-8f9f-ef4e9ad8150a | Handling request: GET /Cards/getDefault/34
+[2025-07-29 11:42:42] [INF] [LP-0200] [3712] [Task01] [Task01.Middlewares.RequestLogging] b886359e-ab20-415a-af86-ac6a42f605eb | Handling request: GET /Cards/GetAllCards/34
+[2025-07-29 11:42:42] [INF] [LP-0200] [3712] [Task01] [Task01.Middlewares.RequestLogging] 49b0528b-3df8-4043-8f9f-ef4e9ad8150a | Completed request GET /Cards/getDefault/34
+[2025-07-29 11:42:42] [INF] [LP-0200] [3712] [Task01] [Task01.Middlewares.RequestLogging] b886359e-ab20-415a-af86-ac6a42f605eb | Completed request GET /Cards/GetAllCards/34
+[2025-07-29 11:42:42] [INF] [LP-0200] [3712] [Task01] [Task01.Middlewares.RequestLogging] 4ab33a57-0045-4f96-9c9d-6dc31e8cd686 | Handling request: GET /Cards/getDefault/34
+[2025-07-29 11:42:42] [INF] [LP-0200] [3712] [Task01] [Task01.Middlewares.RequestLogging] 4ab33a57-0045-4f96-9c9d-6dc31e8cd686 | Completed request GET /Cards/getDefault/34
+[2025-07-29 11:42:46] [INF] [LP-0200] [3712] [Task01] [Task01.Middlewares.RequestLogging] 1436adb8-b8ff-479f-8c2e-820c9783d00a | Handling request: OPTIONS /Users
+[2025-07-29 11:42:46] [INF] [LP-0200] [3712] [Task01] [Task01.Middlewares.RequestLogging] 1436adb8-b8ff-479f-8c2e-820c9783d00a | Completed request OPTIONS /Users
+[2025-07-29 11:42:46] [INF] [LP-0200] [3712] [Task01] [Task01.Middlewares.RequestLogging] 7d49322d-5120-42c5-89ab-e524f9d84de4 | Handling request: GET /Users
+[2025-07-29 11:42:46] [INF] [LP-0200] [3712] [Task01] [Task01.Middlewares.RequestLogging] 7d49322d-5120-42c5-89ab-e524f9d84de4 | Completed request GET /Users
+[2025-07-29 17:43:22] [WRN] [RequestId: ] [LP-0200] [Microsoft.EntityFrameworkCore.Model.Validation] No store type was specified for the decimal property 'Amount' on entity type 'Transaction'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-07-29 17:43:22] [WRN] [RequestId: ] [LP-0200] [Microsoft.EntityFrameworkCore.Model.Validation] No store type was specified for the decimal property 'Balance' on entity type 'User'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-07-29 17:47:06] [WRN] [RequestId: ] [LP-0200] [Microsoft.EntityFrameworkCore.Model.Validation] No store type was specified for the decimal property 'Amount' on entity type 'Transaction'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-07-29 17:47:06] [WRN] [RequestId: ] [LP-0200] [Microsoft.EntityFrameworkCore.Model.Validation] No store type was specified for the decimal property 'Balance' on entity type 'User'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-07-29 17:47:28] [WRN] [RequestId: ] [LP-0200] [Microsoft.EntityFrameworkCore.Model.Validation] No store type was specified for the decimal property 'Amount' on entity type 'Transaction'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-07-29 17:47:28] [WRN] [RequestId: ] [LP-0200] [Microsoft.EntityFrameworkCore.Model.Validation] No store type was specified for the decimal property 'Balance' on entity type 'User'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-07-29 17:47:30] [ERR] [RequestId: ] [LP-0200] [Microsoft.EntityFrameworkCore.Database.Command] Failed executing DbCommand (29ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Transactions] (
+    [Id] int NOT NULL IDENTITY,
+    [SenderId] int NOT NULL,
+    [ReceiverId] int NOT NULL,
+    [Amount] decimal(18,2) NOT NULL,
+    [TransactionDate] datetime2 NOT NULL,
+    CONSTRAINT [PK_Transactions] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Transactions_Users_ReceiverId] FOREIGN KEY ([ReceiverId]) REFERENCES [Users] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Transactions_Users_SenderId] FOREIGN KEY ([SenderId]) REFERENCES [Users] ([Id]) ON DELETE CASCADE
+);

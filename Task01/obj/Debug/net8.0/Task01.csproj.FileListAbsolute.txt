@@ -220,4 +220,10 @@ D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Serilog.Settings.Config
 D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Serilog.Sinks.Console.dll
 D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Serilog.Sinks.Debug.dll
 D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Serilog.Sinks.File.dll
-D:\Dev\Projects\KEENU-Internship\Task01\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Ben.Demystifier.dll
+D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Serilog.Enrichers.CallerInfo.dll
+D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Serilog.Enrichers.Thread.dll
+D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Serilog.Enrichers.WithCaller.dll
+D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Serilog.Enrichers.Environment.dll
+D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Serilog.Enrichers.Process.dll
+D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Serilog.Exceptions.dll

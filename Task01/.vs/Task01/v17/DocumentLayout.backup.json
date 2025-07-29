@@ -3,24 +3,56 @@
   "WorkspaceRootPath": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\controllers\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:controllers\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\middlewares\\requestlogging.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:middlewares\\requestlogging.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\logs\\errors-20250729.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:logs\\errors-20250729.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\middlewares\\standardresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:middlewares\\standardresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\service\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:service\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\middlewares\\singlesessionmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:middlewares\\singlesessionmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\controllers\\cardscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:controllers\\cardscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\controllers\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:controllers\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\middlewares\\errorhandlingmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:middlewares\\errorhandlingmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\task01.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:task01.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\controllers\\cardscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:controllers\\cardscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\model\\usertoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -29,14 +61,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\model\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:model\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\middlewares\\errorhandlingmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:middlewares\\errorhandlingmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\middlewares\\standardresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:middlewares\\standardresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\model\\loginuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -63,10 +87,6 @@
       "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:model\\cardinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\service\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:service\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -79,14 +99,6 @@
       "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:service\\cardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\service\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:service\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\model\\usercard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:model\\usercard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -97,10 +109,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\migrations\\20250714105406_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:migrations\\20250714105406_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\logs\\errors-20250715.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:logs\\errors-20250715.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\migrations\\20250714120708_addloginuserstable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -127,10 +135,6 @@
       "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:task01.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\task01.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:task01.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|d:\\dev\\projects\\keenu-internship\\task01\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{A806024C-C6C5-482C-9D4A-A6702882F719}|Task01.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
@@ -141,8 +145,8 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedHeight": 329,
-          "SelectedChildIndex": 3,
+          "DockedHeight": 271,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -150,85 +154,169 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SingleSessionManager.cs",
-              "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Middlewares\\SingleSessionManager.cs",
-              "RelativeDocumentMoniker": "Middlewares\\SingleSessionManager.cs",
-              "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Middlewares\\SingleSessionManager.cs",
-              "RelativeToolTip": "Middlewares\\SingleSessionManager.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAADwvzUAAABKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-25T07:30:11.89Z",
+              "DocumentIndex": 3,
+              "Title": "errors-20250729.txt",
+              "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Logs\\errors-20250729.txt",
+              "RelativeDocumentMoniker": "Logs\\errors-20250729.txt",
+              "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Logs\\errors-20250729.txt",
+              "RelativeToolTip": "Logs\\errors-20250729.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAACgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-07-29T06:42:58.96Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "standardResponse.cs",
+              "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Middlewares\\standardResponse.cs",
+              "RelativeDocumentMoniker": "Middlewares\\standardResponse.cs",
+              "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Middlewares\\standardResponse.cs",
+              "RelativeToolTip": "Middlewares\\standardResponse.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwBQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T08:08:23.811Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RequestLogging.cs",
+              "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Middlewares\\RequestLogging.cs",
+              "RelativeDocumentMoniker": "Middlewares\\RequestLogging.cs",
+              "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Middlewares\\RequestLogging.cs",
+              "RelativeToolTip": "Middlewares\\RequestLogging.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAYwCUAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T11:07:22.507Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Service\\UserService.cs",
+              "RelativeDocumentMoniker": "Service\\UserService.cs",
+              "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Service\\UserService.cs",
+              "RelativeToolTip": "Service\\UserService.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAYwB4AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-11T07:20:37.978Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\appsettings.json*",
+              "RelativeToolTip": "appsettings.json*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-07-10T11:36:02.661Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAFAAAAAAAAAAAAAwwEAAAAAsAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-10T10:57:07.857Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 7,
               "Title": "Login.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Controllers\\Login.cs",
               "RelativeDocumentMoniker": "Controllers\\Login.cs",
               "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Controllers\\Login.cs",
               "RelativeToolTip": "Controllers\\Login.cs",
-              "ViewState": "AgIAAE0AAAAAAAAAAAAAAFMAAAApAAAAAAAAAA==",
+              "ViewState": "AgIAADAAAAAAAAAAAAAtwFUAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-11T12:48:21.719Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-11T12:48:21.719Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
+              "Title": "SingleSessionManager.cs",
+              "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Middlewares\\SingleSessionManager.cs",
+              "RelativeDocumentMoniker": "Middlewares\\SingleSessionManager.cs",
+              "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Middlewares\\SingleSessionManager.cs",
+              "RelativeToolTip": "Middlewares\\SingleSessionManager.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAYwCcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-25T07:30:11.89Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Task01.csproj",
+              "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Task01.csproj",
+              "RelativeDocumentMoniker": "Task01.csproj",
+              "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Task01.csproj",
+              "RelativeToolTip": "Task01.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-07-10T11:25:24.933Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "ApplicationDBContext.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Data\\ApplicationDBContext.cs",
               "RelativeDocumentMoniker": "Data\\ApplicationDBContext.cs",
               "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Data\\ApplicationDBContext.cs",
               "RelativeToolTip": "Data\\ApplicationDBContext.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAuwBwAAAAsAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAAA3wBwAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-11T10:10:02.896Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-11T10:10:02.896Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "User.cs",
-              "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Model\\User.cs",
-              "RelativeDocumentMoniker": "Model\\User.cs",
-              "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Model\\User.cs",
-              "RelativeToolTip": "Model\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAuAAAAAAAAAA==",
+              "DocumentIndex": 9,
+              "Title": "ErrorHandlingMiddleware.cs",
+              "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Middlewares\\ErrorHandlingMiddleware.cs",
+              "RelativeDocumentMoniker": "Middlewares\\ErrorHandlingMiddleware.cs",
+              "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Middlewares\\ErrorHandlingMiddleware.cs",
+              "RelativeToolTip": "Middlewares\\ErrorHandlingMiddleware.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-10T11:27:08.092Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-14T07:53:03.04Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 11,
               "Title": "CardsController.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Controllers\\CardsController.cs",
               "RelativeDocumentMoniker": "Controllers\\CardsController.cs",
               "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Controllers\\CardsController.cs",
               "RelativeToolTip": "Controllers\\CardsController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEIAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAEIAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-18T11:56:01.186Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-18T11:56:01.186Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 12,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
+              "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Controllers\\UserController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T11:29:39.309Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "UserToken.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Model\\UserToken.cs",
               "RelativeDocumentMoniker": "Model\\UserToken.cs",
@@ -236,38 +324,23 @@
               "RelativeToolTip": "Model\\UserToken.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-25T07:15:06.576Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-25T07:15:06.576Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "standardResponse.cs",
-              "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Middlewares\\standardResponse.cs",
-              "RelativeDocumentMoniker": "Middlewares\\standardResponse.cs",
-              "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Middlewares\\standardResponse.cs",
-              "RelativeToolTip": "Middlewares\\standardResponse.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAAA7AAAAAAAAAA==",
+              "DocumentIndex": 14,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Model\\User.cs",
+              "RelativeDocumentMoniker": "Model\\User.cs",
+              "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Model\\User.cs",
+              "RelativeToolTip": "Model\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-15T08:08:23.811Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-10T11:27:08.092Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ErrorHandlingMiddleware.cs",
-              "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Middlewares\\ErrorHandlingMiddleware.cs",
-              "RelativeDocumentMoniker": "Middlewares\\ErrorHandlingMiddleware.cs",
-              "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Middlewares\\ErrorHandlingMiddleware.cs",
-              "RelativeToolTip": "Middlewares\\ErrorHandlingMiddleware.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAABEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-14T07:53:03.04Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 17,
               "Title": "UserPermission.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Model\\UserPermission.cs",
               "RelativeDocumentMoniker": "Model\\UserPermission.cs",
@@ -275,12 +348,11 @@
               "RelativeToolTip": "Model\\UserPermission.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-24T09:23:42.24Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-24T09:23:42.24Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 15,
               "Title": "LoginUser.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Model\\LoginUser.cs",
               "RelativeDocumentMoniker": "Model\\LoginUser.cs",
@@ -288,12 +360,11 @@
               "RelativeToolTip": "Model\\LoginUser.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAiwA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-14T11:28:13.192Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-14T11:28:13.192Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 16,
               "Title": "UserRole.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Model\\UserRole.cs",
               "RelativeDocumentMoniker": "Model\\UserRole.cs",
@@ -301,12 +372,11 @@
               "RelativeToolTip": "Model\\UserRole.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-24T09:34:11.857Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-24T09:34:11.857Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 18,
               "Title": "JwtSettings.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Model\\JwtSettings.cs",
               "RelativeDocumentMoniker": "Model\\JwtSettings.cs",
@@ -314,12 +384,11 @@
               "RelativeToolTip": "Model\\JwtSettings.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-14T05:57:25.231Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-14T05:57:25.231Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 19,
               "Title": "CurrentLogin.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Model\\CurrentLogin.cs",
               "RelativeDocumentMoniker": "Model\\CurrentLogin.cs",
@@ -327,12 +396,11 @@
               "RelativeToolTip": "Model\\CurrentLogin.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-14T11:55:37.832Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-14T11:55:37.832Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 20,
               "Title": "CardInfo.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Model\\CardInfo.cs",
               "RelativeDocumentMoniker": "Model\\CardInfo.cs",
@@ -340,25 +408,11 @@
               "RelativeToolTip": "Model\\CardInfo.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-18T12:54:44.802Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-18T12:54:44.802Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
-              "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Controllers\\UserController.cs",
-              "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAgwHgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-10T11:29:39.309Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 21,
               "Title": "IUserService.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Service\\IUserService.cs",
               "RelativeDocumentMoniker": "Service\\IUserService.cs",
@@ -370,7 +424,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 22,
               "Title": "ICardService.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Service\\ICardService.cs",
               "RelativeDocumentMoniker": "Service\\ICardService.cs",
@@ -382,7 +436,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 23,
               "Title": "CardService.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Service\\CardService.cs",
               "RelativeDocumentMoniker": "Service\\CardService.cs",
@@ -394,31 +448,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Service\\UserService.cs",
-              "RelativeDocumentMoniker": "Service\\UserService.cs",
-              "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Service\\UserService.cs",
-              "RelativeToolTip": "Service\\UserService.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAYwB4AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-11T07:20:37.978Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-07-10T11:36:02.661Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 24,
               "Title": "UserCard.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Model\\UserCard.cs",
               "RelativeDocumentMoniker": "Model\\UserCard.cs",
@@ -430,7 +460,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 25,
               "Title": "ApplicationDBContextModelSnapshot.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Migrations\\ApplicationDBContextModelSnapshot.cs",
               "RelativeDocumentMoniker": "Migrations\\ApplicationDBContextModelSnapshot.cs",
@@ -442,7 +472,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 26,
               "Title": "20250714105406_InitialCreate.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Migrations\\20250714105406_InitialCreate.cs",
               "RelativeDocumentMoniker": "Migrations\\20250714105406_InitialCreate.cs",
@@ -454,19 +484,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "errors-20250715.txt",
-              "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Logs\\errors-20250715.txt",
-              "RelativeDocumentMoniker": "Logs\\errors-20250715.txt",
-              "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Logs\\errors-20250715.txt",
-              "RelativeToolTip": "Logs\\errors-20250715.txt",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2025-07-15T06:53:49.98Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 27,
               "Title": "20250714120708_AddLoginUsersTable.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Migrations\\20250714120708_AddLoginUsersTable.cs",
               "RelativeDocumentMoniker": "Migrations\\20250714120708_AddLoginUsersTable.cs",
@@ -478,7 +496,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 28,
               "Title": "20250715051551_MakeLoginUserUserNullable.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Migrations\\20250715051551_MakeLoginUserUserNullable.cs",
               "RelativeDocumentMoniker": "Migrations\\20250715051551_MakeLoginUserUserNullable.cs",
@@ -490,7 +508,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 29,
               "Title": "20250714113437_AddLoginUserTable.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Migrations\\20250714113437_AddLoginUserTable.cs",
               "RelativeDocumentMoniker": "Migrations\\20250714113437_AddLoginUserTable.cs",
@@ -502,7 +520,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 30,
               "Title": "20250714114837_RemoveNameFromUserLogin.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Migrations\\20250714114837_RemoveNameFromUserLogin.cs",
               "RelativeDocumentMoniker": "Migrations\\20250714114837_RemoveNameFromUserLogin.cs",
@@ -514,7 +532,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 31,
               "Title": "index.html",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\wwwroot\\index.html",
               "RelativeDocumentMoniker": "wwwroot\\index.html",
@@ -526,7 +544,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 32,
               "Title": "Task01.http",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Task01.http",
               "RelativeDocumentMoniker": "Task01.http",
@@ -538,19 +556,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "Task01.csproj",
-              "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Task01.csproj",
-              "RelativeDocumentMoniker": "Task01.csproj",
-              "ToolTip": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Task01.csproj",
-              "RelativeToolTip": "Task01.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-07-10T11:25:24.933Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "launchSettings.json",
               "DocumentMoniker": "D:\\Dev\\Projects\\KEENU-Internship\\Task01\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "Properties\\launchSettings.json",
@@ -563,12 +569,12 @@
           ]
         },
         {
-          "DockedHeight": 71,
+          "DockedHeight": 129,
           "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
             },
             {
               "$type": "Bookmark",
@@ -577,6 +583,10 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
             }
           ]
         }

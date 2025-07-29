@@ -61,7 +61,6 @@ namespace Task01.Controllers
                 return BadRequest("Invalid login request.");
             }
 
-            // Find the user based on username and password
             var user = _dbContext.LoginUsers
                 .Include(u => u.User)
                 .Include(u => u.Role)
@@ -73,7 +72,6 @@ namespace Task01.Controllers
                 return Unauthorized("Invalid credentials.");
             }
 
-            // Find and deactivate any previously active token for this user
             var loggedInUser = _dbContext.UserTokens
                 .Where(t => t.UserId == user.UserId && t.IsActive)
                 .FirstOrDefault();
@@ -85,7 +83,6 @@ namespace Task01.Controllers
                 _dbContext.SaveChanges();
             }
 
-            // Prepare the claims for the JWT token
             var name = user.User.Name;
             var email = user.User.Email;
             var role = user.Role.name;

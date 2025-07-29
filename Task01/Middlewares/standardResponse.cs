@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Serilog;
 using System.IO;
 using System.Text.Json;
+
 using System.Threading.Tasks;
 
 namespace Task01.Middlewares
@@ -10,9 +12,11 @@ namespace Task01.Middlewares
     {
         private readonly RequestDelegate _next;
 
-        public standardResponse(RequestDelegate next)
+
+        public standardResponse(RequestDelegate next, ILogger<standardResponse> logger)
         {
             _next = next;
+
         }
 
         public async Task InvokeAsync(HttpContext context)
@@ -38,7 +42,6 @@ namespace Task01.Middlewares
                     message = GetMessage(context.Response.StatusCode), // hardcoded message assigner 
                     data = TryParseJson(bodyText) // The message passed in badrequest objects, like NotFound()
                 };
-
                 var wrappedJson = JsonSerializer.Serialize(responseObject);
                 context.Response.ContentType = "application/json";
                 await context.Response.WriteAsync(wrappedJson);

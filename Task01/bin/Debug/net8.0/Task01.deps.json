@@ -11,7 +11,15 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.7",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.7",
+          "Serilog": "4.3.0",
           "Serilog.AspNetCore": "9.0.0",
+          "Serilog.Enrichers.CallerInfo": "1.0.6",
+          "Serilog.Enrichers.Environment": "3.0.1",
+          "Serilog.Enrichers.Process": "3.0.0",
+          "Serilog.Enrichers.Thread": "4.0.0",
+          "Serilog.Enrichers.WithCaller": "1.3.0",
+          "Serilog.Exceptions": "8.4.0",
+          "Serilog.Sinks.Console": "6.0.0",
           "Serilog.Sinks.File": "7.0.0",
           "Swashbuckle.AspNetCore": "6.6.2"
         },
@@ -51,6 +59,17 @@
           "lib/netstandard2.0/Azure.Identity.dll": {
             "assemblyVersion": "1.11.4.0",
             "fileVersion": "1.1100.424.31005"
+          }
+        }
+      },
+      "Ben.Demystifier/0.4.1": {
+        "dependencies": {
+          "System.Reflection.Metadata": "7.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.1/Ben.Demystifier.dll": {
+            "assemblyVersion": "0.4.0.0",
+            "fileVersion": "0.4.0.2"
           }
         }
       },
@@ -808,17 +827,17 @@
           }
         }
       },
-      "Serilog/4.2.0": {
+      "Serilog/4.3.0": {
         "runtime": {
           "lib/net8.0/Serilog.dll": {
-            "assemblyVersion": "4.2.0.0",
-            "fileVersion": "4.2.0.0"
+            "assemblyVersion": "4.3.0.0",
+            "fileVersion": "4.3.0.0"
           }
         }
       },
       "Serilog.AspNetCore/9.0.0": {
         "dependencies": {
-          "Serilog": "4.2.0",
+          "Serilog": "4.3.0",
           "Serilog.Extensions.Hosting": "9.0.0",
           "Serilog.Formatting.Compact": "3.0.0",
           "Serilog.Settings.Configuration": "9.0.0",
@@ -833,12 +852,81 @@
           }
         }
       },
+      "Serilog.Enrichers.CallerInfo/1.0.6": {
+        "dependencies": {
+          "Ben.Demystifier": "0.4.1",
+          "Serilog": "4.3.0"
+        },
+        "runtime": {
+          "lib/net6.0/Serilog.Enrichers.CallerInfo.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Serilog.Enrichers.Environment/3.0.1": {
+        "dependencies": {
+          "Serilog": "4.3.0"
+        },
+        "runtime": {
+          "lib/net8.0/Serilog.Enrichers.Environment.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Serilog.Enrichers.Process/3.0.0": {
+        "dependencies": {
+          "Serilog": "4.3.0"
+        },
+        "runtime": {
+          "lib/net8.0/Serilog.Enrichers.Process.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Serilog.Enrichers.Thread/4.0.0": {
+        "dependencies": {
+          "Serilog": "4.3.0"
+        },
+        "runtime": {
+          "lib/net8.0/Serilog.Enrichers.Thread.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "Serilog.Enrichers.WithCaller/1.3.0": {
+        "dependencies": {
+          "Ben.Demystifier": "0.4.1",
+          "Serilog": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard2.1/Serilog.Enrichers.WithCaller.dll": {
+            "assemblyVersion": "1.3.0.2",
+            "fileVersion": "1.3.0.2"
+          }
+        }
+      },
+      "Serilog.Exceptions/8.4.0": {
+        "dependencies": {
+          "Serilog": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.7.0"
+        },
+        "runtime": {
+          "lib/net6.0/Serilog.Exceptions.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.4.0.0"
+          }
+        }
+      },
       "Serilog.Extensions.Hosting/9.0.0": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.7",
           "Microsoft.Extensions.Hosting.Abstractions": "9.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "9.0.7",
-          "Serilog": "4.2.0",
+          "Serilog": "4.3.0",
           "Serilog.Extensions.Logging": "9.0.0"
         },
         "runtime": {
@@ -851,7 +939,7 @@
       "Serilog.Extensions.Logging/9.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Logging": "9.0.7",
-          "Serilog": "4.2.0"
+          "Serilog": "4.3.0"
         },
         "runtime": {
           "lib/net8.0/Serilog.Extensions.Logging.dll": {
@@ -862,7 +950,7 @@
       },
       "Serilog.Formatting.Compact/3.0.0": {
         "dependencies": {
-          "Serilog": "4.2.0"
+          "Serilog": "4.3.0"
         },
         "runtime": {
           "lib/net8.0/Serilog.Formatting.Compact.dll": {
@@ -875,7 +963,7 @@
         "dependencies": {
           "Microsoft.Extensions.Configuration.Binder": "9.0.0",
           "Microsoft.Extensions.DependencyModel": "9.0.7",
-          "Serilog": "4.2.0"
+          "Serilog": "4.3.0"
         },
         "runtime": {
           "lib/net8.0/Serilog.Settings.Configuration.dll": {
@@ -886,7 +974,7 @@
       },
       "Serilog.Sinks.Console/6.0.0": {
         "dependencies": {
-          "Serilog": "4.2.0"
+          "Serilog": "4.3.0"
         },
         "runtime": {
           "lib/net8.0/Serilog.Sinks.Console.dll": {
@@ -897,7 +985,7 @@
       },
       "Serilog.Sinks.Debug/3.0.0": {
         "dependencies": {
-          "Serilog": "4.2.0"
+          "Serilog": "4.3.0"
         },
         "runtime": {
           "lib/net8.0/Serilog.Sinks.Debug.dll": {
@@ -908,7 +996,7 @@
       },
       "Serilog.Sinks.File/7.0.0": {
         "dependencies": {
-          "Serilog": "4.2.0"
+          "Serilog": "4.3.0"
         },
         "runtime": {
           "lib/net8.0/Serilog.Sinks.File.dll": {
@@ -1128,6 +1216,7 @@
           "System.Collections.Immutable": "7.0.0"
         }
       },
+      "System.Reflection.TypeExtensions/4.7.0": {},
       "System.Runtime.Caching/6.0.0": {
         "dependencies": {
           "System.Configuration.ConfigurationManager": "6.0.1"
@@ -1258,6 +1347,13 @@
       "sha512": "sha512-Sf4BoE6Q3jTgFkgBkx7qztYOFELBCo+wQgpYDwal/qJ1unBH73ywPztIJKXBXORRzAeNijsuxhk94h0TIMvfYg==",
       "path": "azure.identity/1.11.4",
       "hashPath": "azure.identity.1.11.4.nupkg.sha512"
+    },
+    "Ben.Demystifier/0.4.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-axFeEMfmEORy3ipAzOXG/lE+KcNptRbei3F0C4kQCdeiQtW+qJW90K5iIovITGrdLt8AjhNCwk5qLSX9/rFpoA==",
+      "path": "ben.demystifier/0.4.1",
+      "hashPath": "ben.demystifier.0.4.1.nupkg.sha512"
     },
     "Humanizer.Core/2.14.1": {
       "type": "package",
@@ -1588,12 +1684,12 @@
       "path": "mono.texttemplating/3.0.0",
       "hashPath": "mono.texttemplating.3.0.0.nupkg.sha512"
     },
-    "Serilog/4.2.0": {
+    "Serilog/4.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-gmoWVOvKgbME8TYR+gwMf7osROiWAURterc6Rt2dQyX7wtjZYpqFiA/pY6ztjGQKKV62GGCyOcmtP1UKMHgSmA==",
-      "path": "serilog/4.2.0",
-      "hashPath": "serilog.4.2.0.nupkg.sha512"
+      "sha512": "sha512-+cDryFR0GRhsGOnZSKwaDzRRl4MupvJ42FhCE4zhQRVanX0Jpg6WuCBk59OVhVDPmab1bB+nRykAnykYELA9qQ==",
+      "path": "serilog/4.3.0",
+      "hashPath": "serilog.4.3.0.nupkg.sha512"
     },
     "Serilog.AspNetCore/9.0.0": {
       "type": "package",
@@ -1601,6 +1697,48 @@
       "sha512": "sha512-JslDajPlBsn3Pww1554flJFTqROvK9zz9jONNQgn0D8Lx2Trw8L0A8/n6zEQK1DAZWXrJwiVLw8cnTR3YFuYsg==",
       "path": "serilog.aspnetcore/9.0.0",
       "hashPath": "serilog.aspnetcore.9.0.0.nupkg.sha512"
+    },
+    "Serilog.Enrichers.CallerInfo/1.0.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9X7fy8y6opbLmffpBb8/kqzDADOvXENTFLRuoM1+ZF730bvJrnjMKaufjWvlycC2R2UQa3v0Bi1ZxFyxusVRXA==",
+      "path": "serilog.enrichers.callerinfo/1.0.6",
+      "hashPath": "serilog.enrichers.callerinfo.1.0.6.nupkg.sha512"
+    },
+    "Serilog.Enrichers.Environment/3.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9BqCE4C9FF+/rJb/CsQwe7oVf44xqkOvMwX//CUxvUR25lFL4tSS6iuxE5eW07quby1BAyAEP+vM6TWsnT3iqw==",
+      "path": "serilog.enrichers.environment/3.0.1",
+      "hashPath": "serilog.enrichers.environment.3.0.1.nupkg.sha512"
+    },
+    "Serilog.Enrichers.Process/3.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/wPYz2PDCJGSHNI+Z0PAacZvrgZgrGduWqLXeC2wvW6pgGM/Bi45JrKy887MRcRPHIZVU0LAlkmJ7TkByC0boQ==",
+      "path": "serilog.enrichers.process/3.0.0",
+      "hashPath": "serilog.enrichers.process.3.0.0.nupkg.sha512"
+    },
+    "Serilog.Enrichers.Thread/4.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-C7BK25a1rhUyr+Tp+1BYcVlBJq7M2VCHlIgnwoIUVJcicM9jYcvQK18+OeHiXw7uLPSjqWxJIp1EfaZ/RGmEwA==",
+      "path": "serilog.enrichers.thread/4.0.0",
+      "hashPath": "serilog.enrichers.thread.4.0.0.nupkg.sha512"
+    },
+    "Serilog.Enrichers.WithCaller/1.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Vbuoa7ASXCI+ssdKaCfnQgnsWIyVXlc5g+VZi4oZP2hSHStU4L7n9TTuiQR8zGS75jz4qIJoJGtoSZxzn537lQ==",
+      "path": "serilog.enrichers.withcaller/1.3.0",
+      "hashPath": "serilog.enrichers.withcaller.1.3.0.nupkg.sha512"
+    },
+    "Serilog.Exceptions/8.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nc/+hUw3lsdo0zCj0KMIybAu7perMx79vu72w0za9Nsi6mWyNkGXxYxakAjWB7nEmYL6zdmhEQRB4oJ2ALUeug==",
+      "path": "serilog.exceptions/8.4.0",
+      "hashPath": "serilog.exceptions.8.4.0.nupkg.sha512"
     },
     "Serilog.Extensions.Hosting/9.0.0": {
       "type": "package",
@@ -1811,6 +1949,13 @@
       "sha512": "sha512-MclTG61lsD9sYdpNz9xsKBzjsmsfCtcMZYXz/IUr2zlhaTaABonlr1ESeompTgM+Xk+IwtGYU7/voh3YWB/fWw==",
       "path": "system.reflection.metadata/7.0.0",
       "hashPath": "system.reflection.metadata.7.0.0.nupkg.sha512"
+    },
+    "System.Reflection.TypeExtensions/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VybpaOQQhqE6siHppMktjfGBw1GCwvCqiufqmP8F1nj7fTUNtW35LOEt3UZTEsECfo+ELAl/9o9nJx3U91i7vA==",
+      "path": "system.reflection.typeextensions/4.7.0",
+      "hashPath": "system.reflection.typeextensions.4.7.0.nupkg.sha512"
     },
     "System.Runtime.Caching/6.0.0": {
       "type": "package",
