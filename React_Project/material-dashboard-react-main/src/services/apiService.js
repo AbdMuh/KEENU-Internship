@@ -68,6 +68,7 @@ const apiService = {
         token: data?.token,
         expiration: data?.expiration,
         permissions: data?.permissions,
+        balance: data.balance,
       };
 
       console.log("Parsed user data:", user);
@@ -188,11 +189,12 @@ const apiService = {
 
   logout: async () => {
     try {
-      const response = await axios.post("/Auth/logout");
+      const response = await apiClient.post("/Auth/logout");
 
       if (response.status === 200) {
         localStorage.removeItem("authToken");
         localStorage.removeItem("user");
+        console.log("Logout successful, local storage cleared.");
         return { success: true };
       } else {
         console.error("Logout failed on server.");
@@ -245,6 +247,43 @@ const apiService = {
       return {
         success: false,
         error: error.response?.data?.data || "Failed to fetch cards", //error message from API
+      };
+    }
+  },
+
+  transferMoney: async (transferData) => {
+    //reciever id , amount
+    try {
+      const response = await apiClient.post(`/Transaction/transfer`, transferData);
+      return { success: true, data: response.data };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.response?.data?.message || "Failed to transfer money",
+      };
+    }
+  },
+
+  getNames: async () => {
+    try {
+      const response = await apiClient.get("/Users/getNames");
+      return { success: true, data: response.data.data };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.response?.data?.message || "Failed to fetch names",
+      };
+    }
+  },
+
+  getTransactions: async (userId) => {
+    try {
+      const response = await apiClient.get(`/Transaction/get/${userId}`);
+      return { success: true, data: response.data.data };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.response?.data?.message || "Failed to fetch transactions",
       };
     }
   },

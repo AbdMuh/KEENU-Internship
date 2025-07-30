@@ -1,4 +1,5 @@
 ﻿using Azure.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -27,6 +28,7 @@ namespace Task01.Controllers
         }
 
         [HttpPost("logout")]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
@@ -86,6 +88,7 @@ namespace Task01.Controllers
             var name = user.User.Name;
             var email = user.User.Email;
             var role = user.Role.name;
+            var balance = user.User.Balance;
             var username = user.Username;
             var permissionNames = user.Role.Permissions.Select(p => p.Name).ToList();
 
@@ -132,7 +135,8 @@ namespace Task01.Controllers
                 id = user.UserId,
                 name,
                 userRole = role,
-                permissions = permissionNames
+                permissions = permissionNames,
+                balance
             });
         }
 

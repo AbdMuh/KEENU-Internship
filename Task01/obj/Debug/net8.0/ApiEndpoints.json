@@ -141,6 +141,48 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Task01.Controllers.TransactionController",
+    "Method": "GetUserTransactions",
+    "RelativePath": "Transaction/get/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Task01.Model.TransactionSummary, Task01, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Task01.Controllers.TransactionController",
+    "Method": "Transfer",
+    "RelativePath": "Transaction/transfer",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Task01.Model.TransactionRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UserApi.Controllers.UsersController",
     "Method": "GetAll",
     "RelativePath": "Users",
@@ -237,6 +279,26 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserApi.Controllers.UsersController",
+    "Method": "GetNames",
+    "RelativePath": "Users/getNames",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Task01.Model.TransferUserDTO, Task01, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "UserApi.Controllers.UsersController",

@@ -31,6 +31,7 @@ namespace UserApi.Controllers
             //return Ok($"Useres Loaded at: {DateTime.UtcNow}");
         }
 
+
         //[Authorize(Roles = "Admin,Manager")]
         [Authorize(Policy = "CanEditUsers")]
         [HttpGet("admin")]
@@ -41,6 +42,26 @@ namespace UserApi.Controllers
             //var username = User.FindFirst("Username")?.Value;  since used custom claim 
             return Ok($"Welcome Mr.{name}, your  is {email}");
         }
+
+        [HttpGet("getNames")]
+
+        [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
+        public ActionResult<IEnumerable<TransferUserDTO>> GetNames()
+        {
+            var senderId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (senderId == null)
+            {
+                return Unauthorized("User not authenticated.");
+            }
+
+            var users = _userService.GetTransferUsers(int.Parse(senderId));
+
+            if (users == null || !users.Any())
+                return NotFound("No Users Present");
+
+            return Ok(users);
+        }
+
 
         [Authorize(Policy = "CanViewUsers")]
         [HttpGet("user")]

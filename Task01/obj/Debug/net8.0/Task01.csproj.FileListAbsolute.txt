@@ -227,3 +227,4 @@ D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Serilog.Enrichers.WithC
 D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Serilog.Enrichers.Environment.dll
 D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Serilog.Enrichers.Process.dll
 D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Serilog.Exceptions.dll
+D:\Dev\Projects\KEENU-Internship\Task01\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

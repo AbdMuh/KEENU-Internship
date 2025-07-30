@@ -83,6 +83,11 @@ function PaymentMethod({
   async function handleChangeDefaultCard(cardId) {
     const userId = JSON.parse(localStorage.getItem("user"))?.id;
     console.log("Setting default card for user:", userId, "Card ID:", cardId);
+    var previousDefault = paymentMethods.find((card) => card.setAsDefault === 1);
+    if (previousDefault.cardId === cardId) {
+      showAlert("This card is already set as default", "info");
+      return;
+    }
     const response = await apiService.setDefaultCard({ userId, cardId });
     if (response.success) {
       showAlert(response.data, "success");

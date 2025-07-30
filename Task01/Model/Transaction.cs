@@ -20,6 +20,7 @@ namespace Task01.Model
         [ForeignKey(nameof(ReceiverId))]
         public User Receiver { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }
 
         public DateTime TransactionDate { get; set; } = DateTime.UtcNow;

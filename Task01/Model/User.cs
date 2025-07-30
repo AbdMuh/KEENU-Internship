@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Task01.Model;
 
@@ -8,7 +9,8 @@ public class User
     public required string  Name { get; set; }
     public required string Email { get; set; }
 
-    public decimal Balance { get; set; } = 0;
+    [Column(TypeName = "decimal(18,2)")]
+    public decimal Balance { get; set; } = 5000;
 
     public required LoginUser loginUser { get; set; } //one-to-one navigation property, every user has one loginUser must 
 

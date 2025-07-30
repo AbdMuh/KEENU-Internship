@@ -28,6 +28,19 @@ namespace Task01.Data
                 .HasForeignKey(uc => uc.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Transaction>()
+    .HasOne(t => t.Sender)
+    .WithMany()
+    .HasForeignKey(t => t.SenderId)
+    .OnDelete(DeleteBehavior.Restrict); 
+
+            modelBuilder.Entity<Transaction>()
+                .HasOne(t => t.Receiver)
+                .WithMany()
+                .HasForeignKey(t => t.ReceiverId)
+                .OnDelete(DeleteBehavior.Restrict);  
+
+
             modelBuilder.Entity<UserToken>()
             .HasOne(ut => ut.User)    
             .WithMany()                      // User can have many tokens (no navigation property needed on User)

@@ -20,6 +20,22 @@ namespace UserApi.Services
         .ToList();
         }
 
+        public IEnumerable<TransferUserDTO> GetTransferUsers(int userId)
+        {
+            var users = _context.Users
+                .Where(u => u.Id != userId) // Exclude the sender
+                .Select(u => new TransferUserDTO
+                {
+                    userId = u.Id,
+                    name = u.Name
+                })
+                .ToList();
+            Console.WriteLine("The User Names are: ",users);
+
+            return users;
+        }
+
+
         public UserRole GetUserRole(string roleName)
         {
             return _context.Roles.Include(u => u.Permissions).FirstOrDefault(r => r.name == roleName);

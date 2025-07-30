@@ -1,341 +1,255 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // React hooks
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-// @mui material components
-import Grid from "@mui/material/Grid";
+// MUI components
+import {
+  Grid,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  MenuItem,
+} from "@mui/material";
 
-// Material Dashboard 2 React components
+// Material Dashboard components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
+import MDButton from "components/MDButton";
+import { useAlert } from "context/AlertContext";
 
-// Material Dashboard 2 React examples
+// Dashboard layout
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import MasterCard from "examples/Cards/MasterCard";
 import DefaultInfoCard from "examples/Cards/InfoCards/DefaultInfoCard";
 
-// Billing page components
+// Billing components
 import PaymentMethod from "layouts/billing/components/PaymentMethod";
 import Invoices from "layouts/billing/components/Invoices";
 import BillingInformation from "layouts/billing/components/BillingInformation";
 import Transactions from "layouts/billing/components/Transactions";
 
-// API Service
+// Services
 import apiService from "services/apiService";
+import { useAuth } from "AuthProvider";
 
 function Billing() {
   const [displayCard, setDisplayCard] = useState(null);
+  const [balance, setBalance] = useState(0);
+  const { user } = useAuth();
+  const { showAlert } = useAlert();
   const [paymentMethods, setPaymentMethods] = useState([]);
-  const [apiError, setApiError] = useState({
-    displayCardError: null,
-    paymentMethodError: null,
-    addNewCardError: null,
-  });
-  const navigate = useNavigate();
+  const [receivers, setReceivers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [transactions, setTransactions] = useState([]);
 
-  // Helper function to format card number for display
-  const formatCardNumber = (cardNumber) => {
-    if (!cardNumber) return "****\u00A0\u00A0****\u00A0\u00A0****\u00A0\u00A0****";
-    const lastFour = cardNumber.slice(-4);
-    return `****\u00A0\u00A0****\u00A0\u00A0****\u00A0\u00A0${lastFour}`;
+  const [isTransferOpen, setIsTransferOpen] = useState(false);
+  const [transferData, setTransferData] = useState({ receiverId: "", amount: "" });
+  const [transferError, setTransferError] = useState("");
+
+  const navigate = useNavigate();
+
+  const formatExpirationDate = (dateStr) => {
+    if (!dateStr) return "MM/YY";
+    const date = new Date(dateStr);
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = String(date.getFullYear()).slice(-2);
+    return `${month}/${year}`;
   };
 
-  // Helper function to format expiration date
-  const formatExpirationDate = (expirationDate) => {
-    if (!expirationDate) return "MM/YY";
-    try {
-      const date = new Date(expirationDate);
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-      const year = String(date.getFullYear()).slice(-2);
-      return `${month}/${year}`;
-    } catch (error) {
-      console.error("Error formatting date:", error);
-      return "MM/YY";
-    }
+  const fetchDefaultCard = async () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) return;
+
+    const res = await apiService.getDefaultCard(user.id);
+    if (res.success) setDisplayCard(res.data);
   };
 
-  // Fetch default card
-  async function fetchDefaultCard() {
-    try {
-      const userStr = localStorage.getItem("user");
-      if (!userStr) {
-        setApiError((prev) => ({
-          ...prev,
-          displayCardError: "User not found in localStorage",
-        }));
-        return;
-      }
-      const user = JSON.parse(userStr);
-      const response = await apiService.getDefaultCard(user.id);
-      console.log("Default card userId:", user.id);
-
-      if (response.success) {
-        setDisplayCard(response.data);
-        // Clear error on successful fetch
-        setApiError((prev) => ({
-          ...prev,
-          displayCardError: null,
-        }));
-      } else {
-        setApiError((prev) => ({
-          ...prev,
-          displayCardError: response.error || "Failed to fetch default card.",
-        }));
-      }
-    } catch (error) {
-      setApiError((prev) => ({
-        ...prev,
-        displayCardError: "Error fetching default card: " + error.message,
-      }));
-    }
-  }
-
-  async function handleAddCard() {
-    const userStr = localStorage.getItem("user");
-    const user = userStr ? JSON.parse(userStr) : null;
-    if (!user) {
-      setApiError((prev) => ({
-        ...prev,
-        addNewCardError: "User not found in localStorage",
-      }));
+  const fetchTransactions = async () => {
+    const res = await apiService.getTransactions(user.id);
+    if (res.success) {
+      setTransactions(res.data);
     } else {
-      navigate("/addCard");
+      console.error("Failed to fetch transactions:", res.error);
     }
-  }
-
-  // Fetch all payment methods
-  async function fetchPaymentMethods() {
-    try {
-      const userStr = localStorage.getItem("user");
-      if (!userStr) {
-        setApiError((prev) => ({
-          ...prev,
-          paymentMethodError: "User not found in localStorage",
-        }));
-        return;
-      }
-
-      const user = JSON.parse(userStr);
-      const response = await apiService.getCards(user.id);
-
-      if (response.success) {
-        setPaymentMethods(response.data || []);
-        setDisplayCard(fetchDefaultCard()); // Ensure displayCard is set
-        // Clear error on successful fetch
-        setApiError((prev) => ({
-          ...prev,
-          paymentMethodError: null,
-        }));
-      } else {
-        setApiError((prev) => ({
-          ...prev,
-          paymentMethodError: response.error || "Failed to fetch payment methods.",
-        }));
-      }
-    } catch (error) {
-      setApiError((prev) => ({
-        ...prev,
-        paymentMethodError: "Error fetching payment methods: " + error.message,
-      }));
-    }
-  }
-
-  // Clear specific errors
-  const clearError = (errorType) => {
-    setApiError((prev) => ({
-      ...prev,
-      [errorType]: null,
-    }));
   };
 
-  // Load data on component mount
+  const fetchPaymentMethods = async () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) return;
+
+    const res = await apiService.getCards(user.id);
+    if (res.success) setPaymentMethods(res.data);
+  };
+
+  const fetchTransferUsers = async () => {
+    const res = await apiService.getNames();
+    console.log("Transfer users fetched:", res);
+    if (res.success) setReceivers(res.data);
+  };
+
   useEffect(() => {
-    const loadData = async () => {
+    const init = async () => {
       setLoading(true);
-      await Promise.all([fetchDefaultCard(), fetchPaymentMethods()]);
+      await Promise.all([
+        fetchDefaultCard(),
+        fetchPaymentMethods(),
+        fetchTransferUsers(),
+        fetchTransactions(),
+      ]);
+      setBalance(user?.balance || 0);
       setLoading(false);
     };
-
-    loadData();
+    init();
   }, []);
 
-  // Find default card from payment methods if displayCard is not set
+  const cancelModal = () => {
+    setIsTransferOpen(false);
+    setTransferData({ receiverId: "", amount: "" });
+    setTransferError("");
+  };
+  const handleTransfer = async () => {
+    const { receiverId, amount } = transferData;
+    const numericAmount = parseFloat(amount);
+
+    if (!receiverId || numericAmount <= 0 || isNaN(numericAmount)) {
+      setTransferError("Please enter a valid positive amount and select a receiver.");
+      return;
+    }
+
+    try {
+      console.log("Transferring money to:", receiverId, "Amount:", numericAmount);
+
+      const response = await apiService.transferMoney({ receiverId, amount: numericAmount });
+      if (response.success) {
+        setBalance((prev) => prev - numericAmount);
+        showAlert("Transfer successful!", "success");
+        cancelModal();
+      } else {
+        setTransferError(response.error || "Transfer failed.");
+      }
+    } catch (err) {
+      setTransferError("An error occurred while processing the transfer.");
+    }
+  };
+
   const defaultCard = displayCard || paymentMethods.find((card) => card.setAsDefault === 1);
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox mt={8}>
-        {/* Error Display Section */}
-        {(apiError.displayCardError || apiError.paymentMethodError) && (
-          <MDBox mb={3}>
-            <Grid container spacing={2}>
-              {apiError.displayCardError && (
-                <Grid item xs={12}>
-                  <MDBox
-                    bgColor="error"
-                    color="white"
-                    p={2}
-                    borderRadius="lg"
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
-                  >
-                    <MDTypography variant="body2" color="white" fontWeight="medium">
-                      <strong>Default Card Error:</strong> {apiError.displayCardError}
-                    </MDTypography>
-                    <MDBox
-                      component="button"
-                      onClick={() => clearError("displayCardError")}
-                      sx={{
-                        background: "none",
-                        border: "none",
-                        color: "white",
-                        cursor: "pointer",
-                        fontSize: "16px",
-                        padding: 0,
-                      }}
+        <Grid container spacing={3}>
+          <Grid item xs={12} lg={8}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} xl={6}>
+                <MasterCard
+                  number={Number(defaultCard?.cardNumber || "4562112245947852")}
+                  holder={defaultCard?.holderName || "No Default Card"}
+                  expires={formatExpirationDate(defaultCard?.expirationDate)}
+                />
+              </Grid>
+              <Grid item xs={12} md={6} xl={3}>
+                <DefaultInfoCard
+                  icon="account_balance"
+                  title="Account Balance"
+                  description="Current balance in your account"
+                  value={`$${balance.toFixed(0)}`}
+                />
+              </Grid>
+              <Grid item xs={12} md={6} xl={3}>
+                <DefaultInfoCard
+                  icon="send"
+                  title="Transfer Money"
+                  description="Send money to friends"
+                  value={
+                    <MDButton
+                      variant="contained"
+                      color="primary"
+                      onClick={() => setIsTransferOpen(true)}
                     >
-                      ×
-                    </MDBox>
-                  </MDBox>
-                </Grid>
-              )}
-              {apiError.paymentMethodError && (
-                <Grid item xs={12}>
-                  <MDBox
-                    bgColor="error"
-                    color="white"
-                    p={2}
-                    borderRadius="lg"
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
-                  >
-                    <MDTypography variant="body2" color="white" fontWeight="medium">
-                      <strong>Payment Methods Error:</strong> {apiError.paymentMethodError}
-                    </MDTypography>
-                    <MDBox
-                      component="button"
-                      onClick={() => clearError("paymentMethodError")}
-                      sx={{
-                        background: "none",
-                        border: "none",
-                        color: "white",
-                        cursor: "pointer",
-                        fontSize: "16px",
-                        padding: 0,
-                      }}
-                    >
-                      ×
-                    </MDBox>
-                  </MDBox>
-                </Grid>
-              )}
-            </Grid>
-          </MDBox>
-        )}
-
-        <MDBox mb={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} lg={8}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} xl={6}>
-                  {loading ? (
-                    <MDBox
-                      display="flex"
-                      justifyContent="center"
-                      alignItems="center"
-                      minHeight="200px"
-                      sx={{
-                        backgroundColor: "grey.100",
-                        borderRadius: 2,
-                        border: "1px dashed",
-                        borderColor: "grey.300",
-                      }}
-                    >
-                      <MDBox textAlign="center">
-                        <MDTypography variant="body2" color="text">
-                          Loading default card...
-                        </MDTypography>
-                      </MDBox>
-                    </MDBox>
-                  ) : defaultCard ? (
-                    <MasterCard
-                      number={Number(defaultCard.cardNumber) || Number("4562112245947852")}
-                      holder={defaultCard.holderName || "Card Holder"}
-                      expires={formatExpirationDate(defaultCard.expirationDate)}
-                    />
-                  ) : (
-                    <MasterCard
-                      number="4562112245947852"
-                      holder="No Default Card"
-                      expires="MM/YY"
-                    />
-                  )}
-                </Grid>
-                <Grid item xs={12} md={6} xl={3}>
-                  <DefaultInfoCard
-                    icon="account_balance"
-                    title="salary"
-                    description="Belong Interactive"
-                    value="+$2000"
-                  />
-                </Grid>
-                <Grid item xs={12} md={6} xl={3}>
-                  <DefaultInfoCard
-                    icon="paypal"
-                    title="paypal"
-                    description="Freelance Payment"
-                    value="$455.00"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <PaymentMethod
-                    paymentMethods={paymentMethods}
-                    loading={loading}
-                    error={apiError.paymentMethodError}
-                    onRefresh={fetchPaymentMethods}
-                    handleAddCard={handleAddCard}
-                  />
-                </Grid>
+                      Transfer
+                    </MDButton>
+                  }
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <PaymentMethod
+                  paymentMethods={paymentMethods}
+                  loading={loading}
+                  onRefresh={fetchPaymentMethods}
+                  handleAddCard={() => navigate("/addCard")}
+                />
               </Grid>
             </Grid>
-            <Grid item xs={12} lg={4}>
-              <Invoices />
-            </Grid>
           </Grid>
-        </MDBox>
-        <MDBox mb={3}>
+          <Grid item xs={12} lg={4}>
+            <Invoices />
+          </Grid>
+        </Grid>
+        <MDBox mt={3}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={7}>
               <BillingInformation />
             </Grid>
             <Grid item xs={12} md={5}>
-              <Transactions />
+              <Transactions transactions={transactions} />
             </Grid>
           </Grid>
         </MDBox>
       </MDBox>
       <Footer />
+
+      {/* Transfer Modal */}
+      <Dialog
+        open={isTransferOpen}
+        onClose={() => setIsTransferOpen(false)}
+        fullWidth
+        maxWidth="sm"
+      >
+        <DialogTitle>Transfer Money</DialogTitle>
+        <DialogContent>
+          <TextField
+            fullWidth
+            label="Select Receiver"
+            select
+            margin="normal"
+            value={transferData.receiverId}
+            onChange={(e) => setTransferData({ ...transferData, receiverId: e.target.value })}
+          >
+            {receivers.map((r) => (
+              <MenuItem key={r.userId} value={r.userId}>
+                {r.name}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            fullWidth
+            label="Amount"
+            type="number"
+            margin="normal"
+            value={transferData.amount}
+            onChange={(e) => setTransferData({ ...transferData, amount: e.target.value })}
+            inputProps={{ min: 0 }}
+          />
+          {transferError && (
+            <MDTypography color="error" variant="caption">
+              {transferError}
+            </MDTypography>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <MDButton onClick={() => cancelModal()} color="secondary">
+            Cancel
+          </MDButton>
+          <MDButton onClick={handleTransfer} color="primary">
+            Transfer
+          </MDButton>
+        </DialogActions>
+      </Dialog>
     </DashboardLayout>
   );
 }
