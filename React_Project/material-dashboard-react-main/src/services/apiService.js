@@ -259,7 +259,7 @@ const apiService = {
     } catch (error) {
       return {
         success: false,
-        error: error.response?.data?.message || "Failed to transfer money",
+        error: error.response?.data?.data || "Failed to transfer money",
       };
     }
   },
@@ -271,7 +271,7 @@ const apiService = {
     } catch (error) {
       return {
         success: false,
-        error: error.response?.data?.message || "Failed to fetch names",
+        error: error.response?.data?.data || "Failed to fetch names",
       };
     }
   },
@@ -283,7 +283,7 @@ const apiService = {
     } catch (error) {
       return {
         success: false,
-        error: error.response?.data?.message || "Failed to fetch transactions",
+        error: error.response?.data?.data || "Failed to fetch transactions",
       };
     }
   },

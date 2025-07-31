@@ -6,7 +6,8 @@ import PropTypes from "prop-types";
 const AlertContext = createContext();
 
 export function useAlert() {
-  return useContext(AlertContext);
+  //custom hook
+  return useContext(AlertContext); // encapsulates the react built-in useContext hook
 }
 
 export function AlertProvider({ children }) {
@@ -45,8 +46,6 @@ export function AlertProvider({ children }) {
     </AlertContext.Provider>
   );
 }
-
-// ✅ Move this outside the component
 AlertProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
