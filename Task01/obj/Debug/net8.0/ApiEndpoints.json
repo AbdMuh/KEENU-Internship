@@ -282,6 +282,26 @@
   },
   {
     "ContainingType": "UserApi.Controllers.UsersController",
+    "Method": "GetBalance",
+    "RelativePath": "Users/getBalance",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Decimal",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "UserApi.Controllers.UsersController",
     "Method": "GetNames",
     "RelativePath": "Users/getNames",
     "HttpMethod": "GET",

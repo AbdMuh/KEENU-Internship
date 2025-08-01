@@ -68,6 +68,19 @@ function Billing() {
     if (res.success) setDisplayCard(res.data);
   };
 
+  const fetchBalance = async () => {
+    try {
+      const response = await apiService.getBalance();
+      if (response.success) {
+        setBalance(response.data);
+      } else {
+        showAlert(response.error || "Failed to fetch balance", "error");
+      }
+    } catch (error) {
+      console.error("Error invoking the API method", error);
+    }
+  };
+
   const fetchTransactions = async () => {
     const res = await apiService.getTransactions(user.id);
     if (res.success) {
@@ -99,8 +112,8 @@ function Billing() {
         fetchPaymentMethods(),
         fetchTransferUsers(),
         fetchTransactions(),
+        fetchBalance(),
       ]);
-      setBalance(user?.balance || 0);
       setLoading(false);
     };
     init();
@@ -125,7 +138,7 @@ function Billing() {
 
       const response = await apiService.transferMoney({ receiverId, amount: numericAmount });
       if (response.success) {
-        setBalance((prev) => prev - numericAmount);
+        setBalance(fetchBalance());
         showAlert("Transfer successful!", "success");
         cancelModal();
       } else {
@@ -157,7 +170,7 @@ function Billing() {
                   icon="account_balance"
                   title="Account Balance"
                   description="Current balance in your account"
-                  value={`$${balance.toFixed(0)}`}
+                  value={`$${balance.toFixed(2)}`}
                 />
               </Grid>
               <Grid item xs={12} md={6} xl={3}>

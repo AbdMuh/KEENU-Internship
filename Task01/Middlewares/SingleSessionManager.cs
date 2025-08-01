@@ -19,7 +19,8 @@ namespace Task01.Middlewares
 
         public async Task Invoke(HttpContext httpContext)
         {
-            if (httpContext.Request.Path.StartsWithSegments("/Auth/login"))
+            if (httpContext.Request.Path.StartsWithSegments("/Auth/login") || (httpContext.Request.Path.StartsWithSegments("/Users")
+                && httpContext.Request.Method == "POST"))
             {
                 await _next(httpContext);  // Skip the middleware for the login endpoint
                 return;

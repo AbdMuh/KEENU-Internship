@@ -20,6 +20,19 @@ namespace UserApi.Services
         .ToList();
         }
 
+        public decimal GetUserBalance(int id)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+            if (user != null)
+            {
+                return user.Balance;
+            }
+            else
+            {
+                throw new KeyNotFoundException($"User with ID {id} not found.");
+            }
+        }
+
         public IEnumerable<TransferUserDTO> GetTransferUsers(int userId)
         {
             var users = _context.Users

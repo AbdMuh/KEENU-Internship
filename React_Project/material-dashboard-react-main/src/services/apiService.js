@@ -31,21 +31,21 @@ apiClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-apiClient.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("user");
-      if (localStorage.getItem("user")) {
-        window.location.href = "/dashboard";
-      } else {
-        window.location.href = "/authentication/sign-in";
-      }
-    }
-    return Promise.reject(error);
-  }
-);
+// apiClient.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     if (error.response?.status === 401) {
+//       localStorage.removeItem("authToken");
+//       localStorage.removeItem("user");
+//       if (localStorage.getItem("user")) {
+//         window.location.href = "/dashboard";
+//       } else {
+//         window.location.href = "/authentication/sign-in";
+//       }
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 const apiService = {
   login: async (credentials) => {
@@ -284,6 +284,18 @@ const apiService = {
       return {
         success: false,
         error: error.response?.data?.data || "Failed to fetch transactions",
+      };
+    }
+  },
+
+  getBalance: async () => {
+    try {
+      const response = await apiClient.get(`/Users/getBalance`);
+      return { success: true, data: response.data.data };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.response?.data?.data || "Failed to fetch balance",
       };
     }
   },

@@ -12,6 +12,8 @@ namespace UserApi.Services
         User? UpdateUser(User user);
         UserRole GetUserRole(string roleName);
 
+        decimal GetUserBalance(int id);
+
         IEnumerable<TransferUserDTO> GetTransferUsers(int id);
     }
 }

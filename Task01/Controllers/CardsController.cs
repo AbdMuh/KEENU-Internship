@@ -32,7 +32,7 @@ namespace Task01.Controllers
         [HttpPost("add")]
         public ActionResult<UserCard> AddCard([FromBody] UserCard userCard)
         {
-            if (userCard == null || userCard.UserId == 0 || string.IsNullOrWhiteSpace(userCard.CardNumber))
+            if (userCard == null || string.IsNullOrWhiteSpace(userCard.CardNumber))
                 return BadRequest("Invalid card data.");
 
             if(  (userCard.CardNumber).Length != 16)

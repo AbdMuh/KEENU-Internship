@@ -228,3 +228,10 @@ D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Serilog.Enrichers.Envir
 D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Serilog.Enrichers.Process.dll
 D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Serilog.Exceptions.dll
 D:\Dev\Projects\KEENU-Internship\Task01\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Castle.Core.dll
+D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.InMemory.dll
+D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\Moq.dll
+D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\xunit.abstractions.dll
+D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\xunit.assert.dll
+D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\xunit.core.dll
+D:\Dev\Projects\KEENU-Internship\Task01\bin\Debug\net8.0\xunit.execution.dotnet.dll

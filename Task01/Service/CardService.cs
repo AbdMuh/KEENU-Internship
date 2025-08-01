@@ -24,7 +24,8 @@ namespace UserApi.Services
 
         public UserCard AddCard(UserCard userCard)
         {
-            if (userCard.SetAsDefault == 1)
+            var existingCards = _context.UserCards.Any(uc => uc.UserId == userCard.UserId);
+            if (!existingCards || userCard.SetAsDefault == 1)
             {
                 SetDefaultCard(userCard.UserId, userCard.Id);
             }

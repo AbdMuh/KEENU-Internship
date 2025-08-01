@@ -31,6 +31,22 @@ namespace UserApi.Controllers
             //return Ok($"Useres Loaded at: {DateTime.UtcNow}");
         }
 
+        [HttpGet("getBalance")]
+        [Authorize]
+        [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
+
+        public ActionResult<decimal> GetBalance()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
+            {
+                return Unauthorized("User not authenticated.");
+            }
+
+            decimal balance = _userService.GetUserBalance(int.Parse(userId));
+            return Ok(Math.Round(balance, 2));
+        }
+
 
         //[Authorize(Roles = "Admin,Manager")]
         [Authorize(Policy = "CanEditUsers")]

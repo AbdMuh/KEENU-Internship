@@ -6,8 +6,12 @@ import Icon from "@mui/material/Icon";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import Transaction from "layouts/billing/components/Transaction";
+import { useAuth } from "AuthProvider";
 
 function Transactions({ transactions }) {
+  const { user } = useAuth();
+  const userName = user.name;
+
   return (
     <Card sx={{ height: "100%" }}>
       <MDBox display="flex" justifyContent="space-between" alignItems="center" pt={3} px={2}>
@@ -25,6 +29,7 @@ function Transactions({ transactions }) {
           </MDTypography>
         </MDBox>
       </MDBox>
+
       <MDBox pt={3} pb={2} px={2}>
         {transactions.length === 0 ? (
           <MDTypography variant="body2" color="text" px={2}>
@@ -39,16 +44,27 @@ function Transactions({ transactions }) {
             m={0}
             sx={{ listStyle: "none" }}
           >
-            {transactions.map((tx, index) => (
-              <Transaction
-                key={index}
-                color="success"
-                icon="attach_money"
-                name={`From ${tx.senderName} to ${tx.receiverName}`}
-                description={new Date(tx.transactionDate).toLocaleString()}
-                value={`+ $${tx.amount}`}
-              />
-            ))}
+            {transactions.map((tx, index) =>
+              tx.senderName === userName ? (
+                <Transaction
+                  key={index}
+                  color="error"
+                  icon="remove"
+                  name={`To ${tx.receiverName}`}
+                  description={new Date(tx.transactionDate).toLocaleString()}
+                  value={`- $${tx.amount}`}
+                />
+              ) : (
+                <Transaction
+                  key={index}
+                  color="success"
+                  icon="add"
+                  name={`From ${tx.senderName}`}
+                  description={new Date(tx.transactionDate).toLocaleString()}
+                  value={`+ $${tx.amount}`}
+                />
+              )
+            )}
           </MDBox>
         )}
       </MDBox>
