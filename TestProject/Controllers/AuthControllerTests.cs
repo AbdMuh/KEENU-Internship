@@ -1,63 +1,66 @@
-﻿using Xunit;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
-using System.Collections.Generic;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using Task01.Controllers;
 using Task01.Data;
 using Task01.Model;
+using Xunit;
 
 namespace TestProject.Controllers
 {
     public class AuthControllerTests
     {
-        private AuthController CreateControllerWithSeededData(out ApplicationDBContext context)
+
+        private AuthController AuthControllerSetup ()
         {
             var options = new DbContextOptionsBuilder<ApplicationDBContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString()) // ensures isolation
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
 
-            context = new ApplicationDBContext(options);
+            var context = new ApplicationDBContext(options);
 
-            // Seed data
+            //Seeding data
             var role = new UserRole
             {
-                Id = 1,
-                name = "User",
-                Permissions = new List<UserPermission>
-            {
-                new UserPermission { Id = 1, Name = "CanView" }
-            }
+               Id = 1,
+               name = "Admin",
+               Permissions = new List<UserPermission>
+               {
+                   new UserPermission { Id = 1, Name = "view_users" },
+                   new UserPermission { Id = 2, Name = "edit_users" }
+               }
+
             };
 
-            var loginUser = new LoginUser
+            var User = new User
             {
                 Id = 1,
-                Username = "alice",
-                Password = "pass",
-                Role = role,
-                RoleId = role.Id,
+                Name = "Test",
+                Email = "test@example.com",
+                Balance = 1000,
+                loginUser = new LoginUser
+                {
+                    Id = 1,
+                    Username = "test123",
+                    Password = "123456",
+                    Role = role,
+                    RoleId = role.Id,
+                    UserId = 1
+                }
             };
 
-            var user = new User
-            {
-                Id = 1,
-                Name = "Alice",
-                Email = "alice@example.com",
-                Balance = 100,
-                loginUser = loginUser // required by model
-            };
 
-            loginUser.User = user; // link back
+            var loginUser = User.loginUser;
 
-
-            context.Roles.Add(role);
-            context.Users.Add(user);
+            context.Users.Add(User);
             context.LoginUsers.Add(loginUser);
+            context.Roles.Add(role);
             context.SaveChanges();
 
             var jwtSettings = Options.Create(new JwtSettings
@@ -67,78 +70,83 @@ namespace TestProject.Controllers
                 Audience = "testAudience",
                 Expiration = 60
             });
-
             return new AuthController(jwtSettings, context);
+
         }
 
         [Fact]
-        public void Login_InvalidInput_ReturnsBadRequest()
+        public void Login_BadRequest()
         {
-            var controller = CreateControllerWithSeededData(out _);
+            var controller = AuthControllerSetup();
             var result = controller.Login(null);
-            var badResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Invalid login request.", badResult.Value);
+            var badRequest = Assert.IsType<BadRequestObjectResult>(result); // checking response type
+            Assert.Equal("Invalid login request.", badRequest.Value); // checking response type
         }
 
         [Fact]
-        public void Login_InvalidCredentials_ReturnsUnauthorized()
+        public void Login_Unauthorized()
         {
-            var controller = CreateControllerWithSeededData(out _);
-            var login = new CurrentLogin { username = "wrong", password = "wrong" };
-            var result = controller.Login(login);
-
-            var unauthorized = Assert.IsType<UnauthorizedObjectResult>(result);
-            Assert.Equal("Invalid credentials.", unauthorized.Value);
+            var controller = AuthControllerSetup();
+            var loginData = new CurrentLogin
+            {
+                username = "wrongUser",
+                password = "wrongPassword"
+            };
+            var result = controller.Login(loginData);
+            var badRequest = Assert.IsType<UnauthorizedObjectResult>(result); // checking response type
+            Assert.Equal("Invalid credentials.", badRequest.Value); // checking response message
         }
 
         [Fact]
-        public void Login_ValidCredentials_ReturnsToken()
+        public void Login_ValidCredentials_ReturnToken()
         {
-            var controller = CreateControllerWithSeededData(out _);
-            var login = new CurrentLogin { username = "alice", password = "pass" };
-
-            var result = controller.Login(login);
-            var ok = Assert.IsType<OkObjectResult>(result);
-
-            var response = ok.Value?.GetType().GetProperty("token")?.GetValue(ok.Value);
-            Assert.NotNull(response);
+            var controller = AuthControllerSetup();
+            var loginData = new CurrentLogin
+            {
+                username = "test123",
+                password = "123456"
+            };
+            var result = controller.Login(loginData);
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var data = okResult.Value?.GetType().GetProperty("token")?.GetValue(okResult.Value);
+            Assert.NotNull(data);
         }
 
         [Fact]
         public async Task Logout_NoToken_ReturnsUnauthorized()
         {
-            var controller = CreateControllerWithSeededData(out _);
+            var controller = AuthControllerSetup();
             controller.ControllerContext = new ControllerContext
             {
                 HttpContext = new DefaultHttpContext()
             };
-
             var result = await controller.Logout();
             var unauthorized = Assert.IsType<UnauthorizedObjectResult>(result);
             Assert.Equal("No token provided.", unauthorized.Value);
         }
 
         [Fact]
-        public async Task Logout_ValidToken_LogsOutSuccessfully()
+        public async Task Logout_ValidToken_ReturnsOk()
         {
-            var controller = CreateControllerWithSeededData(out var context);
-
-            // Login first
-            var login = new CurrentLogin { username = "alice", password = "pass" };
-            var loginResult = controller.Login(login) as OkObjectResult;
-            var token = loginResult?.Value?.GetType().GetProperty("token")?.GetValue(loginResult.Value)?.ToString();
+            var controller = AuthControllerSetup();
+            controller.ControllerContext = new ControllerContext
+            {
+                HttpContext = new DefaultHttpContext()
+            };
+            var loginData = new CurrentLogin
+            {
+                username = "test123",
+                password = "123456"
+            };
+            var loginResult = controller.Login(loginData);
+            var okResult = Assert.IsType<OkObjectResult>(loginResult);
+            var token = okResult.Value?.GetType().GetProperty("token")?.GetValue(okResult.Value)?.ToString();
             Assert.False(string.IsNullOrEmpty(token));
-
-            // Set token on HttpContext
-            var httpContext = new DefaultHttpContext();
-            httpContext.Request.Headers["Authorization"] = $"Bearer {token}";
-            controller.ControllerContext = new ControllerContext { HttpContext = httpContext };
-
-            // Act
+            controller.ControllerContext.HttpContext.Request.Headers["Authorization"] = $"Bearer {token}";
             var result = await controller.Logout();
             var ok = Assert.IsType<OkObjectResult>(result);
             Assert.Equal("Successfully logged out.", ok.Value);
         }
-    }
+        }
 
 }

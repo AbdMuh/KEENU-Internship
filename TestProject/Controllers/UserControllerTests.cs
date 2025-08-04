@@ -12,7 +12,6 @@ using System.Linq;
 
 namespace TestProject.Controllers
 {
-
     public class UsersControllerTests
     {
         private readonly UsersController _controller;
@@ -22,41 +21,41 @@ namespace TestProject.Controllers
         public UsersControllerTests()
         {
             var options = new DbContextOptionsBuilder<ApplicationDBContext>()
-    .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-    .Options;
-
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
             _context = new ApplicationDBContext(options);
 
-            var role = new UserRole
+            var userRole = new UserRole
             {
                 Id = 1,
                 name = "User",
                 Permissions = new List<UserPermission>()
             };
 
-            var loginUser = new LoginUser
-            {
-                Id = 1,
-                Username = "john",
-                Password = "pass",
-                Role = role,
-                RoleId = role.Id,
-                UserId = 1
-            };
+            _context.Roles.Add(userRole);
+            _context.SaveChanges();
 
             var user = new User
             {
                 Id = 1,
-                Name = "John",
-                Email = "john@example.com",
-                Balance = 500,
-                loginUser = loginUser
+                Name = "Test",
+                Email = "test@example.com",
+                Balance = 1000,
+                loginUser = new LoginUser
+                {
+                    Id = 1,
+                    Username = "test123",
+                    Password = "123456",
+                    Role = userRole,
+                    RoleId = userRole.Id,
+                    UserId = 1
+                }
             };
 
-            loginUser.User = user;
-            _context.Roles.Add(role);
+            user.loginUser.User = user;
+
             _context.Users.Add(user);
-            _context.LoginUsers.Add(loginUser);
+            _context.LoginUsers.Add(user.loginUser);
             _context.SaveChanges();
 
             _userService = new UserService(_context);
@@ -69,48 +68,49 @@ namespace TestProject.Controllers
             var result = _controller.GetAll();
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
             var users = Assert.IsAssignableFrom<IEnumerable<User>>(okResult.Value);
-
             Assert.Single(users);
         }
 
         [Fact]
-        public void GetById_ReturnsUser()
+        public void GetById_Found()
         {
             var result = _controller.GetById(1);
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
             var user = Assert.IsType<User>(okResult.Value);
-
-            Assert.Equal("John", user.Name);
+            Assert.Equal("Test", user.Name);
         }
 
         [Fact]
         public void GetById_NotFound()
         {
             var result = _controller.GetById(99);
-            var notFound = Assert.IsType<NotFoundObjectResult>(result.Result);
-            Assert.Equal("User not found.", notFound.Value);
+            var notFoundResult = Assert.IsType<NotFoundObjectResult>(result.Result);
+            Assert.Equal("User not found.", notFoundResult.Value);
         }
 
         [Fact]
-        public void Create_ValidUser_ReturnsCreated()
+        public void Create_ReturnsCreated()
         {
-            var newUser = new User
+            var role = _context.Roles.FirstOrDefault(r => r.name == "User");
+
+            var userData = new User
             {
                 Id = 2,
-                Name = "Jane",
-                Email = "jane@example.com",
+                Name = "Test2",
+                Email = "test2@example.com",
                 loginUser = new LoginUser
                 {
-                    Username = "jane",
-                    Password = "1234"
+                    Username = "test2",
+                    Password = "123456",
+                    Role = role,
+                    RoleId = role.Id
                 }
             };
 
-            var result = _controller.Create(newUser);
-            var created = Assert.IsType<CreatedAtActionResult>(result.Result);
-            var createdUser = Assert.IsType<User>(created.Value);
-
-            Assert.Equal("Jane", createdUser.Name);
+            var result = _controller.Create(userData);
+            var createdResult = Assert.IsType<CreatedAtActionResult>(result.Result);
+            var createdUser = Assert.IsType<User>(createdResult.Value);
+            Assert.Equal("Test2", createdUser.Name);
         }
 
         [Fact]
@@ -121,10 +121,10 @@ namespace TestProject.Controllers
             var httpContext = new DefaultHttpContext();
             httpContext.User = new ClaimsPrincipal(new ClaimsIdentity(new[]
             {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
-        }));
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+            }));
 
-            _controller.ControllerContext = new ControllerContext()
+            _controller.ControllerContext = new ControllerContext
             {
                 HttpContext = httpContext
             };
@@ -164,9 +164,7 @@ namespace TestProject.Controllers
             var result = _controller.Update(1, updateUser);
             var ok = Assert.IsType<OkObjectResult>(result.Result);
             var updatedUser = Assert.IsType<User>(ok.Value);
-
             Assert.Equal("John Updated", updatedUser.Name);
         }
     }
-
 }
