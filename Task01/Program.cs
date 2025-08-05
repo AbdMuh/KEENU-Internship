@@ -11,6 +11,7 @@ using Task01.Middlewares;
 using Task01.Model;
 using UserApi.Services;
 using Serilog.Exceptions;
+using Task01.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,6 +53,9 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICardService, CardService>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
+
+builder.Services.AddScoped<IBillService, BillService>();
 
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]); //converts string to byte array for the key creation

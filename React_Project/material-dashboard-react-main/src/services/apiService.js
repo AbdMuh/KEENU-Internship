@@ -31,21 +31,21 @@ apiClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// apiClient.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     if (error.response?.status === 401) {
-//       localStorage.removeItem("authToken");
-//       localStorage.removeItem("user");
-//       if (localStorage.getItem("user")) {
-//         window.location.href = "/dashboard";
-//       } else {
-//         window.location.href = "/authentication/sign-in";
-//       }
-//     }
-//     return Promise.reject(error);
-//   }
-// );
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("user");
+      if (localStorage.getItem("user")) {
+        window.location.href = "/dashboard";
+      } else {
+        window.location.href = "/authentication/sign-in";
+      }
+    }
+    return Promise.reject(error);
+  }
+);
 
 const apiService = {
   login: async (credentials) => {
@@ -109,6 +109,77 @@ const apiService = {
     }
   },
 
+  getOutstandingBills: async () => {
+    try {
+      const response = await apiClient.get(`/Bill/outstanding`);
+      return { success: true, data: response.data.data || response.data };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.response?.data?.data || "Failed to fetch outstanding bills",
+      };
+    }
+  },
+
+  getOutstandingBills: async () => {
+    try {
+      const response = await apiClient.get(`/Bill/outstanding`);
+      return { success: true, data: response.data.data || response.data };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.response?.data?.data || "Failed to fetch outstanding bills",
+      };
+    }
+  },
+  getOutstandingBills: async () => {
+    try {
+      const response = await apiClient.get(`/Bill/outstanding`);
+      return { success: true, data: response.data.data || response.data };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.response?.data?.data || "Failed to fetch outstanding bills",
+      };
+    }
+  },
+
+  getChallanByNumber: async (challanNumber) => {
+    try {
+      const response = await apiClient.get(`/Bill/byChallan/${challanNumber}`);
+      return { success: true, data: response.data.data || response.data };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.response?.data?.data || "Failed to fetch challan",
+      };
+    }
+  },
+
+  getClearedBills: async () => {
+    try {
+      const response = await apiClient.get(`/Bill/cleared`);
+      return { success: true, data: response.data.data || response.data };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.response?.data?.data || "Failed to fetch Cleared bills",
+      };
+    }
+  },
+
+  payBill: async (challanNumber) => {
+    try {
+      const response = await apiClient.post(`/Bill/pay/${challanNumber}`);
+      return { success: true, data: response.data.data || response.data };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.response?.data?.data || "Failed to pay bill",
+      };
+    }
+  },
+
   getUsers: async () => {
     try {
       const response = await apiClient.get("/Users");
@@ -131,6 +202,19 @@ const apiService = {
         success: false,
         error: error.response?.data?.message || "Failed to fetch admin data",
         details: error.response?.data,
+      };
+    }
+  },
+
+  getUserDashboardData: async () => {
+    try {
+      console.log("Fetching user dashboard data");
+      const response = await apiClient.get("/Dashboard/get");
+      return { success: true, data: response.data.data };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.response?.data?.data || "Failed to fetch dashboard data",
       };
     }
   },
@@ -181,7 +265,7 @@ const apiService = {
     } catch (error) {
       return {
         success: false,
-        error: error.response?.data?.message || "Failed to update user",
+        error: error.response?.data?.data || "Failed to update user",
         details: error.response?.data,
       };
     }

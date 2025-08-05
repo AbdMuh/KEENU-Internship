@@ -72,6 +72,7 @@ function Billing() {
     try {
       const response = await apiService.getBalance();
       if (response.success) {
+        console.log("Balance fetched successfully:", response.data);
         setBalance(response.data);
       } else {
         showAlert(response.error || "Failed to fetch balance", "error");
@@ -140,6 +141,7 @@ function Billing() {
       if (response.success) {
         setBalance(fetchBalance());
         showAlert("Transfer successful!", "success");
+        fetchTransactions();
         cancelModal();
       } else {
         setTransferError(response.error || "Transfer failed.");
@@ -170,7 +172,7 @@ function Billing() {
                   icon="account_balance"
                   title="Account Balance"
                   description="Current balance in your account"
-                  value={`$${balance.toFixed(2)}`}
+                  value={balance.toLocaleString("en-US", { style: "currency", currency: "USD" })}
                 />
               </Grid>
               <Grid item xs={12} md={6} xl={3}>
@@ -195,6 +197,7 @@ function Billing() {
                   loading={loading}
                   onRefresh={fetchPaymentMethods}
                   handleAddCard={() => navigate("/addCard")}
+                  handleSetDefault={fetchDefaultCard}
                 />
               </Grid>
             </Grid>

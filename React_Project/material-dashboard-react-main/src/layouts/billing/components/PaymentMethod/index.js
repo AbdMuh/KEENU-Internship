@@ -31,6 +31,7 @@ function PaymentMethod({
   error = null,
   onRefresh,
   handleAddCard,
+  handleSetDefault,
 }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
@@ -91,6 +92,7 @@ function PaymentMethod({
     const response = await apiService.setDefaultCard({ userId, cardId });
     if (response.success) {
       showAlert(response.data, "success");
+      handleSetDefault();
       onRefresh();
     } else {
       showAlert(`Error: ${response.error}`, "error");
@@ -266,6 +268,7 @@ PaymentMethod.propTypes = {
   error: PropTypes.string,
   onRefresh: PropTypes.func,
   handleAddCard: PropTypes.func,
+  handleSetDefault: PropTypes.func,
 };
 
 export default PaymentMethod;

@@ -47,6 +47,7 @@ import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import AddCard from "layouts/billing/AddCard";
+import BillsDashboard from "layouts/billing/PayBill";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -92,10 +93,10 @@ const routes = [
     ),
   },
   {
-    type: "collapse",
-    name: "Add Payment Method",
+    // type: "collapse",
+    // name: "Add Payment Method",
     key: "add-payment-method",
-    icon: <Icon fontSize="small">payment</Icon>,
+    // icon: <Icon fontSize="small">payment</Icon>,
     route: "addCard",
     component: (
       <ProtectedRoute>
@@ -117,13 +118,25 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Billing",
+    name: "Transactions",
     key: "billing",
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/billing",
     component: (
       <ProtectedRoute>
         <Billing />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    type: "collapse",
+    name: "Bill Payment",
+    key: "bills",
+    icon: <Icon fontSize="small">paid</Icon>,
+    route: "/bills",
+    component: (
+      <ProtectedRoute>
+        <BillsDashboard />
       </ProtectedRoute>
     ),
   },

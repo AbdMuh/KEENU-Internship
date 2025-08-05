@@ -30,13 +30,43 @@ import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatist
 // Data
 import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+import apiService from "services/apiService";
+import { useAlert } from "context/AlertContext";
 
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
+  const { showAlert } = useAlert();
+  const navigate = useNavigate();
+
+  const [dashboardData, setDashboardData] = useState({
+    totalTransactions: 0,
+    totalIncoming: 0,
+    totalOutgoing: 0,
+    totalCards: 0,
+  });
+
+  const getUserDashboardData = async () => {
+    try {
+      const response = await apiService.getUserDashboardData();
+      if (response.success) {
+        setDashboardData(response.data); //UserDashboard Data
+      } else {
+        showAlert(response.error || "Failed to fetch dashboard data", "error");
+      }
+    } catch (error) {
+      showAlert("Error Connecting to the API", "error");
+    }
+  };
+
+  useEffect(() => {
+    getUserDashboardData();
+  }, []);
 
   return (
     <DashboardLayout>
@@ -45,59 +75,68 @@ function Dashboard() {
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="dark"
-                icon="weekend"
-                title="Bookings"
-                count={281}
-                percentage={{
-                  color: "success",
-                  amount: "+55%",
-                  label: "than lask week",
-                }}
-              />
+              <div onClick={() => navigate("/billing")} style={{ cursor: "pointer" }}>
+                <ComplexStatisticsCard
+                  color="dark"
+                  icon="account_balance"
+                  title="Total Transactions"
+                  count={dashboardData.totalTransactions}
+                  percentage={{
+                    color: "success",
+                    amount: "",
+                    label: "updated",
+                  }}
+                />
+              </div>
             </MDBox>
           </Grid>
+
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                icon="leaderboard"
-                title="Today's Users"
-                count="2,300"
-                percentage={{
-                  color: "success",
-                  amount: "+3%",
-                  label: "than last month",
-                }}
-              />
+              <div onClick={() => navigate("/billing")} style={{ cursor: "pointer" }}>
+                <ComplexStatisticsCard
+                  icon="leaderboard"
+                  title="Total Incoming"
+                  count={`$${dashboardData.totalIncoming.toFixed(2)}`}
+                  percentage={{
+                    color: "success",
+                    amount: "",
+                    label: "updated",
+                  }}
+                />
+              </div>
             </MDBox>
           </Grid>
+
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="success"
-                icon="store"
-                title="Revenue"
-                count="34k"
-                percentage={{
-                  color: "success",
-                  amount: "+1%",
-                  label: "than yesterday",
-                }}
-              />
+              <div onClick={() => navigate("/billing")} style={{ cursor: "pointer" }}>
+                <ComplexStatisticsCard
+                  color="success"
+                  icon="store"
+                  title="Total Outgoing"
+                  count={`$${dashboardData.totalOutgoing.toFixed(2)}`}
+                  percentage={{
+                    color: "success",
+                    amount: "",
+                    label: "updated",
+                  }}
+                />
+              </div>
             </MDBox>
           </Grid>
+
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="primary"
-                icon="person_add"
-                title="Followers"
-                count="+91"
+                icon="credit_card"
+                title="Total Cards"
+                count={dashboardData.totalCards}
                 percentage={{
                   color: "success",
                   amount: "",
-                  label: "Just updated",
+                  label: "updated",
                 }}
               />
             </MDBox>

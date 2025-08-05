@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Task01.Data;
 
@@ -11,9 +12,11 @@ using Task01.Data;
 namespace Task01.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250805102355_AddBillTable")]
+    partial class AddBillTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,10 +32,6 @@ namespace Task01.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
@@ -56,38 +55,6 @@ namespace Task01.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Bills");
-
-                    b.HasData(
-                        new
-                        {
-                            id = 1,
-                            Description = "Electricity Bill",
-                            UserId = 33,
-                            amount = 500m,
-                            challanNumber = "CHLN1001",
-                            dueDate = new DateTime(2025, 8, 15, 0, 0, 0, 0, DateTimeKind.Local),
-                            status = "Pending"
-                        },
-                        new
-                        {
-                            id = 2,
-                            Description = "Water Bill",
-                            UserId = 33,
-                            amount = 750m,
-                            challanNumber = "CHLN1002",
-                            dueDate = new DateTime(2025, 8, 20, 0, 0, 0, 0, DateTimeKind.Local),
-                            status = "Pending"
-                        },
-                        new
-                        {
-                            id = 3,
-                            Description = "Gas Bill",
-                            UserId = 34,
-                            amount = 1200m,
-                            challanNumber = "CHLN1003",
-                            dueDate = new DateTime(2025, 8, 25, 0, 0, 0, 0, DateTimeKind.Local),
-                            status = "Pending"
-                        });
                 });
 
             modelBuilder.Entity("Task01.Model.LoginUser", b =>

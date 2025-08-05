@@ -48,6 +48,160 @@
         }
       }
     },
+    "/Bill/byChallan/{challanNumber}": {
+      "get": {
+        "tags": [
+          "Bill"
+        ],
+        "parameters": [
+          {
+            "name": "challanNumber",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bill"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bill"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bill"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Bill/outstanding": {
+      "get": {
+        "tags": [
+          "Bill"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Bill"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Bill"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Bill"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Bill/cleared": {
+      "get": {
+        "tags": [
+          "Bill"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Bill"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Bill"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Bill"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Bill/pay/{challanNumber}": {
+      "post": {
+        "tags": [
+          "Bill"
+        ],
+        "parameters": [
+          {
+            "name": "challanNumber",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bill"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bill"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bill"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/Cards/GetAllCards/{userId}": {
       "get": {
         "tags": [
@@ -251,6 +405,35 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UserCard"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Dashboard/get": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDashboard"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDashboard"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDashboard"
                 }
               }
             }
@@ -665,6 +848,51 @@
   },
   "components": {
     "schemas": {
+      "Bill": {
+        "required": [
+          "amount",
+          "challanNumber",
+          "description",
+          "dueDate",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "challanNumber": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          }
+        },
+        "additionalProperties": false
+      },
       "CardInfo": {
         "required": [
           "userId"
@@ -845,6 +1073,32 @@
             "format": "int32"
           },
           "userId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserDashboard": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalTransactions": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalIncoming": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalOutgoing": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalCards": {
             "type": "integer",
             "format": "int32"
           }

@@ -16,6 +16,7 @@ namespace Task01.Data
         public DbSet<UserRole> Roles { get; set; }
         public DbSet<UserPermission> Permissions { get; set; }
 
+        public DbSet<Bill> Bills { get; set; }
         public DbSet<UserToken> UserTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -53,6 +54,41 @@ namespace Task01.Data
                 .HasForeignKey<LoginUser>(l => l.UserId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
+
+
+            modelBuilder.Entity<Bill>()
+                .HasData(
+                  new Bill
+                  {
+                      id = 1,
+                      challanNumber = "CHLN1001",
+                      amount = 500,
+                      dueDate = DateTime.Today.AddDays(10),
+                      Description = "Electricity Bill",
+                      status = "Pending",
+                      UserId = 33
+                  },
+        new Bill
+        {
+            id = 2,
+            challanNumber = "CHLN1002",
+            amount = 750,
+            dueDate = DateTime.Today.AddDays(15),
+            Description = "Water Bill",
+            status = "Pending",
+            UserId =33
+        },
+        new Bill
+        {
+            id = 3,
+            challanNumber = "CHLN1003",
+            amount = 1200,
+            dueDate = DateTime.Today.AddDays(20),
+            Description = "Gas Bill",
+            status = "Pending",
+            UserId = 34
+        }
+        );
 
             modelBuilder.Entity<UserRole>()
                 .HasMany(ur => ur.Permissions)
