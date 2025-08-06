@@ -117,9 +117,9 @@ function BillsDashboard() {
           </Typography>
 
           <Typography variant="body2">
-            Amount: ${bill.amount.toFixed(2)} —{" "}
-            <strong style={{ color: bill.isPaid ? "green" : "orange" }}>
-              {bill.isPaid ? "Cleared" : "Outstanding"}
+            Amount: <strong>${bill.amount.toFixed(2)} — </strong>
+            <strong style={{ color: bill.status === "Paid" ? "green" : "orange" }}>
+              {bill.status === "Paid" ? "Cleared" : "Outstanding"}
             </strong>
           </Typography>
         </CardContent>
@@ -206,9 +206,9 @@ function BillsDashboard() {
                 <MDBox
                   component="span"
                   fontWeight="bold"
-                  color={selectedBill.isPaid ? "green" : "orange"}
+                  color={selectedBill.status === "Paid" ? "green" : "orange"}
                 >
-                  {selectedBill.isPaid ? "Cleared" : "Outstanding"}
+                  {selectedBill.status === "Paid" ? "Cleared" : "Outstanding"}
                 </MDBox>
               </Typography>
             </MDBox>
@@ -220,7 +220,7 @@ function BillsDashboard() {
             Close
           </MDButton>
 
-          {selectedBill?.status === "Outstanding" && (
+          {selectedBill?.status === "Pending" && (
             <MDButton
               onClick={() => handlePay(selectedBill.challanNumber)}
               color="primary"
